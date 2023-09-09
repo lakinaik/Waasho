@@ -9,7 +9,7 @@ const AboutSection = () => {
   return (
     <>
       <section className="about-section lg:px-28 px-4 my-20 flex justify-center">
-        <div className="grid md:grid-cols-2 gap-8">
+        <div className="grid md:grid-cols-2 grid-cols-1 gap-8">
           <div className="text-wrapper mx-auto">
             <div>
               <p className="text-lg font-medium text-sky-600 relative after:content-[''] after:h-[2px] after:w-14 after:bg-blue-500 after:absolute after:top-1/2 after:ms-1">
@@ -69,7 +69,7 @@ const AboutSection = () => {
               </div>
             </div>
           </div>
-          <div className="img-wrapper mx-auto">
+          <div className="img-wrapper-about mx-auto">
             <div className="img-box overflow-hidden">
               <img src={washImg} alt="" />
             </div>

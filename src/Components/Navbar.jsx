@@ -11,19 +11,17 @@ import "../App.css";
 const Navbar = () => {
   const [show, setShow] = useState(false);
 
-
   return (
     <>
       <nav>
-        <div className="w-[90%] md:h-24 h-20 bg-white shadow-md mx-auto flex items-start">
-          <div className="logo-container bg-[#02489D] min-w-60 lg:h-36 h-full inline-block">
-            <Link to={"/"}>
-              {" "}
-              <img src={Logo} alt="logo" className="w-40 ps-4" />
+        <div className="w-[90%] lg:h-24 h-20 bg-white shadow-md mx-auto flex items-start">
+          <div className="logo-container bg-[#02489D] lg:h-[130px] h-full md:w-[200px] w-[400px] inline-block">
+            <Link to={"/"} className="m-0">
+              <img src={Logo} alt="logo" className="p-2 w-[130px] lg:w-[150px] relative bottom-6" />
             </Link>
           </div>
-          <div className="navlist p-8 w-full flex justify-end">
-            <ul className="md:flex hidden gap-6">
+          <div className="navlist py-8 pe-2 w-full flex justify-end">
+            <ul className="lg:flex hidden gap-6">
               <li className="navlink text-lg font-medium">
                 <NavLink to={"/"}>Home</NavLink>
               </li>
@@ -40,7 +38,7 @@ const Navbar = () => {
                 <NavLink to={"/contact"}>Contact</NavLink>
               </li>
             </ul>
-            <div className="hidden md:block ps-1 ms-2 border-s-2">
+            <div className="hidden lg:block ps-1 ms-2 border-s-2">
               <Link
                 to={"/login"}
                 className="text-lg m-2 rounded-md bg-blue-600 px-3 py-2 text-white duration-300 hover:bg-black"
@@ -56,7 +54,7 @@ const Navbar = () => {
             </div>
             {/* ======humbergur====== */}
             <button
-              className="md:hidden block text-black float-right"
+              className="lg:hidden block text-black float-right"
               onClick={() => setShow(true)}
             >
               <TfiMenu className="text-black text-xl" />

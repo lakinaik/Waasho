@@ -12,7 +12,7 @@ const Slider = () => {
   return (
     <section className="max-w-full relative">
       <Carousel 
-        autoPlay={false}
+        autoPlay={true}
         dynamicHeight={false}
         infiniteLoop={true}
         showStatus={false}
@@ -23,6 +23,13 @@ const Slider = () => {
         className="absolute w-60 h-60 bg-red-900 right-10 bottom-7 z-50"
         >
             <FaAngleLeft/>
+        </div>
+        }}
+        renderArrowNext={(clickHandler, hasNext)=>{
+        <div onClick={clickHandler} 
+        className="absolute w-60 h-60 bg-red-900 right-10 bottom-7 z-50"
+        >
+            <FaAngleRight/>
         </div>
         }}
       >

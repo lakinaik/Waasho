@@ -1,15 +1,25 @@
-import React from 'react'
+import React, { useState } from 'react';
 
-const Vehicle = ({text, img}) => {
+const Vehicle = ({ text, img, onSelect, isSelected }) => {
+  const handleClick = () => {
+    onSelect(text);
+  };
+
+  const vehicleStyle = {
+    backgroundColor: isSelected ? 'blue' : 'transparent',
+  };
+
   return (
-    <>
-    
-    <div className='border px-3 py-1 grid place-items-center duration-300 hover:bg-blue-500'>
-        <img src={img} alt="img" className='w-20'/>
-        <h2 className='md:text-xl text-sm font-semibold relative bottom-[15px]'>{text}</h2>
+    <div
+      className={`border px-3 py-1 grid place-items-center duration-300 hover:bg-blue-500 ${
+        isSelected ? 'bg-blue-500' : ''
+      }`}
+      onClick={handleClick}
+    >
+      <img src={img} alt="img" className="w-20" />
+      <h2 className="md:text-xl text-sm font-semibold relative bottom-[15px]">{text}</h2>
     </div>
-    </>
-  )
-}
+  );
+};
 
-export default Vehicle
+export default Vehicle;

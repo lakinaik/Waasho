@@ -1,156 +1,159 @@
-import React, { useState, useEffect } from 'react';
-import '../Calendar.css'
+import React, { useState, useEffect } from "react";
+import TimeSlot from "./TimeSlot";
+
 const Calendar = () => {
-  const [year, setYear] = useState(new Date().getFullYear());
-  const [month, setMonth] = useState(new Date().getMonth());
-  const [date, setDate] = useState(new Date().getDate());
-  const [change, setChange] = useState("static");
+  const months = [
+    "January",
+    "February",
+    "March",
+    "April",
+    "May",
+    "June",
+    "July",
+    "August",
+    "September",
+    "October",
+    "November",
+    "December",
+  ];
+  const weekdays = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
+
+  const today = new Date();
+
+  const [currentMonth, setCurrentMonth] = useState(today.getMonth());
+  const [currentYear, setCurrentYear] = useState(today.getFullYear());
+  const [calendarData, setCalendarData] = useState([]);
+
+  const [selectedDate, setSelectedDate] = useState(today);
 
   useEffect(() => {
-    const input = document.querySelector('.dateInput');
-    input.value = year + '-' + (month + 1) + '-' + date;
-  }, [year, month, date]);
+    updateCalendar(currentMonth, currentYear);
+  }, [currentMonth, currentYear, selectedDate]);
 
-  const changeValue = (newYear = year, newMonth = month + 1, newDate = date) => {
-    setYear(newYear);
-    setMonth(newMonth - 1);
-    setDate(newDate);
+  const selectDate = (date) => {
+    setSelectedDate(date);
   };
 
-  const changeDate = (e) => {
-    changeValue(e.target.dataset.year, Number(e.target.dataset.month) + 1, e.target.innerText);
+  const updateCalendar = (targetMonth, targetYear) => {
+    const today = new Date();
+
+    const firstDay = new Date(targetYear, targetMonth, 1);
+    const daysInMonth = new Date(targetYear, targetMonth + 1, 0).getDate();
+    const startDay = firstDay.getDay();
+
+    const prevMonthLastDay = new Date(targetYear, targetMonth, 0);
+    const daysInPrevMonth = prevMonthLastDay.getDate();
+    const prevMonthFirstDay = new Date(
+      targetYear,
+      targetMonth - 1,
+      daysInPrevMonth - startDay + 1
+    );
+
+    const calendarDays = [];
+
+    for (let i = 0; i < startDay; i++) {
+      calendarDays.push({
+        date: prevMonthFirstDay.getDate() + i,
+        isCurrentMonth: false,
+        isDisabled: true,
+      });
+    }
+
+    for (let day = 1; day <= daysInMonth; day++) {
+      const dayDate = new Date(targetYear, targetMonth, day);
+      calendarDays.push({
+        date: day,
+        isCurrentMonth: true,
+        isDisabled: dayDate < today,
+      });
+    }
+
+    setCalendarData(calendarDays);
   };
 
   const prevMonth = () => {
-    const newYear = month === 0 ? year - 1 : year;
-    const newMonth = month === 0 ? 11 : month - 1;
-    changeValue(newYear, newMonth + 1);
+    if (currentMonth === 0) {
+      setCurrentMonth(11);
+      setCurrentYear(currentYear - 1);
+    } else {
+      setCurrentMonth(currentMonth - 1);
+    }
   };
 
   const nextMonth = () => {
-    const newYear = month === 11 ? year + 1 : year;
-    const newMonth = month === 11 ? 0 : month + 1;
-    changeValue(newYear, newMonth + 1);
-  };
-
-  const classes = (data) => {
-    if (data.getMonth() !== month) {
-      return "outDate";
-    } else if (data.getDate() === date) {
-      return "pointDate";
-    } else if (
-      data.getDate() === new Date().getDate() &&
-      data.getMonth() === new Date().getMonth() &&
-      data.getFullYear() === new Date().getFullYear()
-    ) {
-      return "today";
-    }
-    return "innerDate";
-  };
-
-  const changeYear = () => {
-    setChange("input");
-    setTimeout(() => {
-      const input = document.querySelector('.yearInput');
-      input.focus();
-    }, 0);
-  };
-
-  const inputChange = () => {
-    const input = document.querySelector('.yearInput');
-    const newYear = parseInt(input.value);
-    if (newYear > 1899 && newYear < 3000) {
-      changeValue(newYear);
-      setChange("static");
-    } else if (newYear < 1900) {
-      changeValue(1900);
-      setChange("static");
-    } else if (newYear > 3000) {
-      changeValue(2999);
-      setChange("static");
+    if (currentMonth === 11) {
+      setCurrentMonth(0);
+      setCurrentYear(currentYear + 1);
     } else {
-      setChange("static");
+      setCurrentMonth(currentMonth + 1);
     }
   };
 
-  const onKeyup = (e) => {
-    if (e.keyCode === 13) {
-      inputChange();
-    }
+  const selectToday = () => {
+    setSelectedDate(today);
   };
-
-  const backToday = () => {
-    const newYear = new Date().getFullYear();
-    const newMonth = new Date().getMonth();
-    const newDate = new Date().getDate();
-    changeValue(newYear, newMonth + 1, newDate);
-  };
-
-  const days = ['S', 'M', 'T', 'W', 'T', 'F', 'S'];
-
-  const listItems = days.map((day, index) => (
-    <li key={index}>{day}</li>
-  ));
-
-  const months = [
-    'January', 'February', 'March', 'April', 'May', 'June',
-    'July', 'August', 'September', 'October', 'November', 'December'
-  ];
-
-  const firstDay = new Date(year, month).getDay();
-  const dates = [];
-
-  for (let i = 1; i <= 42; i++) {
-    dates.push(new Date(year, month, i - firstDay));
-  }
-
-  const listDates = dates.map((date, index) => (
-    <li
-      key={index}
-      className={classes(date)}
-      data-year={date.getFullYear().toString()}
-      data-month={date.getMonth().toString()}
-      onClick={changeDate}
-    >
-      {date.getDate()}
-    </li>
-  ));
-
-  const input = (
-    <input
-      className="yearInput"
-      type="number"
-      min="1900"
-      max="2999"
-      value={year}
-      onKeyUp={onKeyup}
-      onBlur={inputChange}
-    />
-  );
 
   return (
-    <div className="wrapper">
-      <input className="dateInput" placeholder="点击选择日期" />
-      <button className="back" onClick={backToday}>Today</button>
-      <div className="main">
-        <div className="header">
-          <div className="monthAndYear">
-            <span>{months[month]} </span>
-            <span className="changeYear" onClick={changeYear}>
-              {change === "static" ? year : input}
-            </span>
-          </div>
-          <div className="changeMonth">
-            <span className="prevMonth" onClick={prevMonth}> {'<'} </span>
-            <span className="nextMonth" onClick={nextMonth}> {'>'} </span>
-          </div>
+   <>
+    <section>
+
+<div className="calendar mx-auto">
+  <div className="calendar-header flex justify-between bg-slate-950 text-white px-4 py-2 md:text-xl border-b">
+    <button onClick={prevMonth}>Previous</button>
+    <h2>{`${months[currentMonth]} ${currentYear}`}</h2>
+    <button onClick={nextMonth}>Next</button>
+  </div>
+  <div className="grid grid-cols-7 text-center bg-black text-white md:text-xl text-sm font-bold w-full">
+    {weekdays.map((day, index) => {
+      return (
+        <div className="md:ms-5 ms-2 py-2" key={index}>
+          {day}
         </div>
-        <div className="content">
-          <ul className="nav">{listItems}</ul>
-          <ul className="dates">{listDates}</ul>
-        </div>
+      );
+    })}
+  </div>
+
+  <div className="calendar-grid grid grid-cols-7">
+    {calendarData.map((day, index) => (
+      <div
+        key={index}
+        className={`cursor-pointer calendar-day md:px-12 md:py-6  grid place-content-center border ${
+          day.isDisabled ? "disabled text-gray-400" : ""
+        } ${
+          day.isCurrentMonth ? "" : "prev-day"
+        } ${
+          selectedDate &&
+          selectedDate.getDate() === day.date &&
+          selectedDate.getMonth() === currentMonth &&
+          selectedDate.getFullYear() === currentYear &&
+          day.isCurrentMonth
+            ? "bg-blue-500 text-white"
+            : ""
+        }`}
+        onClick={() => {
+          if (!day.isDisabled && day.isCurrentMonth) {
+            console.log(
+              `Selected date: ${months[currentMonth]} ${day.date}, ${currentYear}`
+            );
+            selectDate(new Date(currentYear, currentMonth, day.date));
+          }
+        }}
+      >
+        {day.date}
       </div>
-    </div>
+    ))}
+  </div>
+
+  <div className="today-button">
+    <button onClick={selectToday} className="bg-blue-500 text-white p-3 mt-4">Select Today</button>
+  </div>
+</div>
+<div className="my-8">
+<TimeSlot selectedDate={selectedDate}/>
+</div>
+</section>
+   </>
+
   );
 };
 
