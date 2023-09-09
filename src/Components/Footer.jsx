@@ -69,7 +69,7 @@ const Footer = () => {
             <div>
               <p className="text-lg text-slate-400 mt-4">Subscribe to our newsletter for daily new and updates.</p>
               <form>
-                <input type="text" name="email" id="email" placeholder="Email" className="p-3 outline-0 mt-2"/>
+                <input type="text" name="email" id="email1" placeholder="Email" className="p-3 outline-0 mt-2"/>
                 <button className="bg-blue-500 text-white p-3 font-semibold">Send <FaArrowRight className="inline"/></button>
               </form>
             </div>

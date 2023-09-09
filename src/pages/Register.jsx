@@ -55,11 +55,6 @@ const Register = () => {
 
     const { fullname, email, phone, password } = formData;
 
-    if (!fullname || !email || !phone || !password) {
-      alert('Please fill in all fields.');
-      return;
-    }
-
   await fetch("/register", {
       method: "POST",
       headers: {
@@ -76,7 +71,7 @@ const Register = () => {
       if (response.status === 200) {
         window.location.href = "/login";
       } else {
-        window.alert("plese fill all details")
+        // window.alert("plese fill all details")
       }
     })
     
@@ -190,7 +185,7 @@ const Register = () => {
                   </label>
                 </div>
                 <div className="text-center my-4">
-                  <button className="bg-sky-500 text-white py-1 px-4 border-2 border-sky-500 rounded-lg duration-300 hover:bg-transparent hover:text-black">
+                  <button type="submit" className="bg-sky-500 text-white py-1 px-4 border-2 border-sky-500 rounded-lg duration-300 hover:bg-transparent hover:text-black">
                     Register
                   </button>
                 </div>
