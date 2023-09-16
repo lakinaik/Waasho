@@ -2,15 +2,16 @@ import React from "react";
 import { BsCheckCircleFill } from "react-icons/bs";
 
 import video from "../assets/car-washing-video.mp4";
-// import Accordian from "./Accordian";
+import Accordian from "./Accordian";
 
 const Faq = () => {
+  
   return (
     <>
       <section className="faq-section md:p-14 px-2 py-8 bg-slate-100">
         <div className="flex">
           <div
-            className="grid md:grid-cols-2 gap-4
+            className="grid lg:grid-cols-2 gap-4
           "
           >
             <div className="video-wrapper mx-auto overflow-hidden">
@@ -39,9 +40,9 @@ const Faq = () => {
 
               {/* ==============FAQ============= */}
 
-              <div className="faq-wrapper">
+              <div className="faq-wrapper mt-4">
 
-            {/* <Accordian/> */}
+            <Accordian/>
 
               </div>
 

@@ -1,14 +1,11 @@
-import React, { useState } from 'react';
 
 const Vehicle = ({ text, img, onSelect, isSelected }) => {
   const handleClick = () => {
-    onSelect(text);
+    if (text !== null && text !== undefined) {
+      onSelect(text);
+    }
+   
   };
-
-  const vehicleStyle = {
-    backgroundColor: isSelected ? 'blue' : 'transparent',
-  };
-
   return (
     <div
       className={`border px-3 py-1 grid place-items-center duration-300 hover:bg-blue-500 ${

@@ -11,7 +11,7 @@ const Bredcrumb = ({page}) => {
                 <div className='text-lg font-medium p-4'>
                     <Link to={'/'} className=''>Home</Link>
                     <span className='mx-2'>/</span>
-                    <Link to={'/booking'} className='text-blue-600'>{page}</Link>
+                    <Link className='text-blue-600'>{page}</Link>
                 </div>
             </div>
         </section> 

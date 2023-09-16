@@ -8,25 +8,33 @@ import BookingWrapper from '../Components/BookingWrapper'
 import Faq from '../Components/Faq'
 import Quality from '../Components/Quality'
 import Footer from '../Components/Footer'
-
+import PackageWrapper from '../Components/PackageWrapper'
+import TopNav from '../Components/TopNav'
+import Navbar from '../Components/Navbar'
+import TrendingOffers from '../Components/TrendingOffers'
+import WhyChooseUs from '../Components/WhyChooseUs'
+import Brands from '../Components/Brands'
 
 const Home = () => {
 
-
-
   return (
-<>
-
-<Header/>
-<Slider/>
-<AboutSection/>
-<Service/>
-<Offer/>
-<BookingWrapper/>
-<Faq/>
-<Quality/>
-<Footer/>
-</>
+    <>
+      {/* <Header /> */}
+      <TopNav/>
+      <Navbar/>
+      <Slider />
+      <TrendingOffers/>
+      {/* <AboutSection /> */}
+      <Service />
+      <Offer />
+      <PackageWrapper/>
+      <WhyChooseUs/>
+      {/* <BookingWrapper /> */}
+      <Faq />
+      {/* <Quality /> */}
+      <Brands/>
+      <Footer />
+    </>
   )
 }
 

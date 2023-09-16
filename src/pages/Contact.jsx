@@ -1,18 +1,80 @@
-import React from "react";
+import React, { useState } from "react";
 import Footer from "../Components/Footer";
-import Header from "../Components/Header";
-import Bredcrumb from "../Components/Bredcrumb";
+import Breadcrumb from "../Components/Bredcrumb"; // Corrected typo in import statement
 import { Link } from "react-router-dom";
 import { AiOutlineMail } from "react-icons/ai";
 import { PiPhoneCall } from "react-icons/pi";
 import { ImLocation } from "react-icons/im";
+import { toast } from "react-toastify";
+import TopNav from "../Components/TopNav";
+import Navbar from "../Components/Navbar";
+
 
 const Contact = () => {
+  const [formData, setFormData] = useState({
+    fullname: "",
+    email: "",
+    phone: "",
+    subject: "",
+    comment: ""
+  });
+
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    setFormData({
+      ...formData,
+      [name]: value
+    });
+  };
+
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+
+    const { fullname, email, phone, subject, comment } = formData;
+    try {
+
+      await fetch(`${process.env.REACT_APP_API}/contact`, {
+        method: "POST",
+        headers: {
+          Accept: "application/json",
+          "Content-Type": "application/json"
+        },
+        body: JSON.stringify({
+          fullname, email, phone, subject, comment
+        })
+      }).then((response) => {
+        if (response.status === 200) {
+          // window.location.href = "/contact";
+          toast.success("Message sent !", {
+            position: toast.POSITION.BOTTOM_RIGHT
+          });
+          setFormData({
+            fullname: "",
+            email: "",
+            phone: "",
+            subject: "",
+            comment: ""
+          });
+        } else {
+          console.log("can not send message");
+          toast.error("Something went wrong !", {
+            position: toast.POSITION.BOTTOM_LEFT
+          });
+        }
+      })
+
+    } catch (error) {
+      console.error("sending failed:", error);
+    }
+
+  };
   return (
     <>
-      <Header />
-      <Bredcrumb page={"Contact"} />
-      <section className="contact mt-20 ">
+      <TopNav/>
+      <Navbar/>
+      <Breadcrumb page={"Contact"} />
+      <section className="contact mt-20">
         <div className="header my-6 md:px-20 px-4">
           <p className="text-xl font-medium text-sky-600 relative after:content-[''] after:h-[2px] after:w-14 after:bg-blue-500 after:absolute after:top-1/2 after:ms-1">
             Write a Message
@@ -30,7 +92,7 @@ const Contact = () => {
             </p>
             <Link className="text-xl font-semibold flex md:items-center text-slate-600 my-4">
               <ImLocation className="inline text-2xl" />
-              86 Road Broklyn Street, 600 New York, USA
+              86 Road Brooklyn Street, 600 New York, USA
             </Link>
             <div>
               <Link
@@ -51,7 +113,7 @@ const Contact = () => {
             </div>
           </div>
           <div>
-            <form action="">
+            <form action="" method="POST" onSubmit={handleSubmit}>
               <h2 className="text-center text-blue-950 text-2xl font-semibold mb-4">Get in touch</h2>
               <div className="grid md:grid-cols-2 gap-4">
                 <input
@@ -60,6 +122,8 @@ const Contact = () => {
                   id="fullname"
                   placeholder="Your Fullname"
                   className="p-3 outline-0 bg-slate-300 text-black"
+                  value={formData.fullname}
+                  onChange={handleChange}
                 />
 
                 <input
@@ -68,6 +132,8 @@ const Contact = () => {
                   id="email"
                   placeholder="Your Email"
                   className="p-3 outline-0 bg-slate-300 text-black"
+                  value={formData.email}
+                  onChange={handleChange}
                 />
 
                 <input
@@ -76,6 +142,8 @@ const Contact = () => {
                   id="phone"
                   placeholder="Enter your phone number"
                   className="p-3 outline-0 bg-slate-300 text-black"
+                  value={formData.phone}
+                  onChange={handleChange}
                 />
                 <input
                   type="text"
@@ -83,6 +151,8 @@ const Contact = () => {
                   id="subject"
                   placeholder="Subject"
                   className="p-3 outline-0 bg-slate-300 text-black"
+                  value={formData.subject}
+                  onChange={handleChange}
                 />
 
                 <textarea
@@ -90,12 +160,14 @@ const Contact = () => {
                   id="comment"
                   placeholder="Your Comment"
                   className="p-3 outline-0 bg-slate-300 text-black md:col-span-2"
+                  value={formData.comment}
+                  onChange={handleChange}
                 ></textarea>
               </div>
 
               <div className="flex justify-center my-8">
-                <button className=" bg-sky-500 border-2 border-sky-500 rounded-lg px-5 py-2 duration-300 hover:bg-transparent hover:border-2 hover:border-sky-500 text-white hover:text-black cursor-pointer">
-                  Sent message
+                <button type="submit" className=" bg-sky-500 border-2 border-sky-500 rounded-lg px-5 py-2 duration-300 hover:bg-transparent hover:border-2 hover:border-sky-500 text-white hover:text-black cursor-pointer">
+                  Send message
                 </button>
               </div>
             </form>

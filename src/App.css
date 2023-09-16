@@ -11,6 +11,13 @@
   /* font-family: 'Poppins', sans-serif; */
 
 
+  /* =========Top nav============ */
+
+  .details-topnav{
+    background-color: #0f0f3d;
+    clip-path: polygon(0 0, 100% 0, 86.5% 101%, 0% 101%);
+  }
+
   .logo-container{
     width: 200px;
     /* position: absolute; */
@@ -49,7 +56,7 @@ transition: all .4s;
 
   /* ==========Slider============== */
 
-.slide img{
+/* .slide img{
 animation: zoom 20s ease-in infinite;
 }
  @keyframes zoom {
@@ -59,7 +66,7 @@ animation: zoom 20s ease-in infinite;
   100%{
     scale: 2;
   }
- }
+ } */
 
 
  /* ===========About section ============= */
@@ -68,6 +75,29 @@ animation: zoom 20s ease-in infinite;
   clip-path: polygon(0 0, 100% 0, 92% 101%, 0% 101%);
  }
 
+
+ /* ==========trending offer============== */
+
+ .section-heading h2,
+ .treding-heading{
+  position: relative;
+ }
+ .section-heading h2::after,
+ .treding-heading::after{
+  content: '';
+  position: absolute;
+  left: 45%;
+  margin: 0 auto;
+  bottom: -20px;
+  width: 100px;
+  height: 4px;
+  background-color: #0ab7fc;
+ }
+
+
+ .section-heading h2::after{
+background-color: white;
+ }
 
  /* ===============service================= */
 

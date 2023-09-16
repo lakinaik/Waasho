@@ -7,22 +7,37 @@ import { AiOutlineInstagram } from "react-icons/ai";
 import { GrFormClose } from "react-icons/gr";
 
 import "../App.css";
+import { useAuth } from "./context/auth";
 
 const Navbar = () => {
   const [show, setShow] = useState(false);
+  const [auth, setAuth] = useAuth();
+
+  const handleLogout = () => {
+    setAuth({
+      ...auth,
+      user: null,
+      token: "",
+    });
+    localStorage.removeItem("token");
+  };
 
   return (
     <>
       <nav>
-        <div className="w-[90%] lg:h-24 h-20 bg-white shadow-md mx-auto flex items-start">
-          <div className="logo-container bg-[#02489D] lg:h-[130px] h-full md:w-[200px] w-[400px] inline-block">
+        <div className="w-full bg-white shadow-md mx-auto flex items-center sticky top-0 z-50 sm:px-14 px-2">
+          <div className="logo-container  inline-block h-full bg-sky-700">
             <Link to={"/"} className="m-0">
-              <img src={Logo} alt="logo" className="p-2 w-[130px] lg:w-[150px] relative bottom-6" />
+              <img
+                src={Logo}
+                alt="logo"
+                className="w-16"
+              />
             </Link>
           </div>
-          <div className="navlist py-8 pe-2 w-full flex justify-end">
+          <div className="navlist w-full flex justify-end items-center pe-4 py-2">
             <ul className="lg:flex hidden gap-6">
-              <li className="navlink text-lg font-medium">
+              <li className="navlink text-xl font-medium">
                 <NavLink to={"/"}>Home</NavLink>
               </li>
               <li className="navlink text-lg font-medium">
@@ -39,7 +54,10 @@ const Navbar = () => {
               </li>
             </ul>
             <div className="hidden lg:block ps-1 ms-2 border-s-2">
-              <Link
+            {
+                !auth.user ? (
+                  <>
+                  <Link
                 to={"/login"}
                 className="text-lg m-2 rounded-md bg-blue-600 px-3 py-2 text-white duration-300 hover:bg-black"
               >
@@ -51,6 +69,19 @@ const Navbar = () => {
               >
                 Register
               </Link>
+                  </>
+                ) : (
+                  <>
+                   <Link
+                   onClick={handleLogout}
+                to={"/login"}
+                className="text-lg m-2 rounded-md bg-blue-600 px-3 py-2 text-white duration-300 hover:bg-black "
+              >
+                Logout
+              </Link>
+                  </>
+                )
+              }
             </div>
             {/* ======humbergur====== */}
             <button
@@ -65,8 +96,8 @@ const Navbar = () => {
             <div
               className={
                 show
-                  ? "fixed bg-[#0e1b46fa] w-60 h-screen top-0 left-0 overflow-auto md:hidden block duration-500 z-50"
-                  : "fixed bg-[#0e1b46fa] w-60 h-screen top-0 -left-[100%] overflow-auto md:hidden block z-50 duration-500"
+                  ? "fixed bg-[#0e1b46fa] w-60 h-screen top-0 left-0 overflow-auto lg:hidden block duration-500 z-50"
+                  : "fixed bg-[#0e1b46fa] w-60 h-screen top-0 -left-[100%] overflow-auto lg:hidden block z-50 duration-500"
               }
             >
               <span className="absolute top-5 right-3 text-white z-50">
@@ -81,7 +112,7 @@ const Navbar = () => {
                 </Link>
               </div>
               <hr className="my-3" />
-              <ul className="md:hidden flex flex-col gap-6 ps-6 text-white">
+              <ul className="lg:hidden flex flex-col gap-6 ps-6 text-white">
                 <li className="navlink text-lg font-medium ">
                   <NavLink to={"/"}>Home</NavLink>
                 </li>
@@ -98,19 +129,33 @@ const Navbar = () => {
                   <NavLink to={"/contact"}>Contact</NavLink>
                 </li>
               </ul>
-              <div className="inline-flex text-center flex-col md:hidden ms-2 mt-3">
-                <Link
-                  to={"/login"}
-                  className="text-lg m-2 rounded-md bg-blue-600 px-3 py-2 text-white duration-300 hover:bg-black"
-                >
-                  Login
-                </Link>
-                <Link
-                  to={"/register"}
-                  className="text-lg m-2 rounded-md bg-blue-600 px-3 py-2 text-white duration-300 hover:bg-black "
-                >
-                  Register
-                </Link>
+              <div className="inline-flex text-center flex-col lg:hidden ms-2 mt-3">
+                {!auth.user ? (
+                  <>
+                    <Link
+                      to={"/login"}
+                      className="text-lg m-2 rounded-md bg-blue-600 px-3 py-2 text-white duration-300 hover:bg-black"
+                    >
+                      Login
+                    </Link>
+                    <Link
+                      to={"/register"}
+                      className="text-lg m-2 rounded-md bg-blue-600 px-3 py-2 text-white duration-300 hover:bg-black "
+                    >
+                      Register
+                    </Link>
+                  </>
+                ) : (
+                  <>
+                    <Link
+                      onClick={handleLogout}
+                      to={"/login"}
+                      className="text-lg m-2 rounded-md bg-blue-600 px-3 py-2 text-white duration-300 hover:bg-black "
+                    >
+                      Logout
+                    </Link>
+                  </>
+                )}
               </div>
               <div className="social-links flex gap-3 text-lg items-center  text-white ps-3 mt-4">
                 <Link>

@@ -14,6 +14,7 @@ import { Link } from "react-router-dom";
 import regImg from "../assets/istockphoto-1427943227-612x612.jpg";
 import Header from "../Components/Header";
 import Bredcrumb from "../Components/Bredcrumb";
+import { toast } from "react-toastify";
 
 const Register = () => {
   const [showPassword, setShowPassword] = useState(false);
@@ -22,8 +23,8 @@ const Register = () => {
     email: "",
     phone: "",
     password: "",
-    term: false, // Add a term field to track the checkbox
-  });
+    term: false, 
+    });
   const [formErrors, setFormErrors] = useState({
     fullname: false,
     email: false,
@@ -55,32 +56,50 @@ const Register = () => {
 
     const { fullname, email, phone, password } = formData;
 
-  await fetch("/register", {
-      method: "POST",
-      headers: {
-        Accept: "application/json",
-        "Content-Type": "application/json"
-      },
-      body: JSON.stringify({
-        fullname,
-        email,
-        phone,
-        password
+if(!formData.term){
+  toast.error("Agree term & condition",{
+    position: toast.POSITION.BOTTOM_RIGHT
+  })
+  return;
+}
+
+    try {
+
+      await fetch(`${process.env.REACT_APP_API}/register`, {
+        method: "POST",
+        headers: {
+          Accept: "application/json",
+          "Content-Type": "application/json"
+        },
+        body: JSON.stringify({
+          fullname,
+          email,
+          phone,
+          password
+        })
+      }).then((response) => {
+        if (response.status === 200) {
+          toast.success("Registered successfully !", {
+            position: toast.POSITION.BOTTOM_RIGHT
+          });
+          window.location.href = "/login";
+        } else {
+          toast.error("Something went wrong !",{
+            position: toast.POSITION.BOTTOM_RIGHT
+          })
+        }
       })
-    }).then((response) => {
-      if (response.status === 200) {
-        window.location.href = "/login";
-      } else {
-        // window.alert("plese fill all details")
-      }
-    })
-    
+
+    } catch (error) {
+      console.error("register failed:", error);
+    }
+
   };
 
   return (
     <>
-      <Header/>
-        <Bredcrumb page={'Register'}/>
+      <Header />
+      <Bredcrumb page={'Register'} />
       <section className="register max-w-full flex items-center justify-center md:pt-8 bg-[#dbe6ee]">
         <div className="bg-white rounded register my-8 p-4">
           <div className="text-center bg-blue-900 px-2 text-white">

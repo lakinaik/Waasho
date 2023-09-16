@@ -8,11 +8,14 @@ import { Link } from "react-router-dom";
 import Header from "../Components/Header";
 import Bredcrumb from "../Components/Bredcrumb";
 import leftImg from "../assets/istockphoto-1427943227-612x612.jpg";
+import { useAuth } from "../Components/context/auth";
+import { toast } from "react-toastify";
 
 const Login = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [showPassword, setShowPassword] = useState(false);
+  const [auth, setAuth] =useAuth()
 
   const handleShow = (e) => {
     e.preventDefault();
@@ -27,26 +30,45 @@ const Login = () => {
       return;
     }
 
-    const res = await fetch("/login", {
-      method: "POST",
-      headers: {
-        Accept: "application/json",
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({
-        email,
-        password,
-      }),
-    });
-
-    const data = await res.json();
-
-    if (data.status === 400) {
-      window.alert("Invalid credentials");
-    } else {
-      window.alert("Login successful");
-      window.location.href = "/";
+    try {
+      // Make a POST request to your authentication API
+      const response = await fetch(`${process.env.REACT_APP_API}/login`, {
+        method: "POST",
+        headers: {
+          Accept: "application/json",
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          email,
+          password,
+        }),
+      });
+    
+      if (response.status === 200) {
+        toast.success("Login successfully !", {
+          position: toast.POSITION.BOTTOM_RIGHT
+        });
+        const data = await response.json();
+        const user = data
+        const token = data.user.token
+        
+        setAuth({
+          ...auth,
+          user,
+          token,
+        });
+        localStorage.setItem('token', JSON.stringify(data))
+        window.location.href = "/";
+      } else {
+        toast.error("Wrong email or password !", {
+          position: toast.POSITION.BOTTOM_RIGHT
+        });
+        console.log("failed to login");
+      }
+    } catch (error) {
+      console.error("Login failed:", error);
     }
+    
   };
 
   return (
@@ -66,7 +88,7 @@ const Login = () => {
               <img src={leftImg} alt="img" className="" width={300} />
             </div>
             <div>
-              <form method="POST" className="my-4">
+              <form method="POST" onSubmit={handleSubmit} className="my-4">
                 <div className="border-2 border-sky-500 p-2 mb-4 rounded">
                   <GrMail className="inline me-2" />
                   <input
@@ -127,7 +149,7 @@ const Login = () => {
                 </div>
                 <div className="text-center my-4">
                   <button
-                    onSubmit={handleSubmit}
+                    type="submit"
                     className="bg-sky-500 text-white py-1 px-4 border-2 border-sky-500 rounded-lg duration-300 hover:bg-transparent hover:text-black"
                   >
                     Login

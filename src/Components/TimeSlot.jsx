@@ -1,60 +1,41 @@
 import React, { useState, useEffect } from 'react';
+import { TimeSlots } from '../Timeslots'; // Make sure to import your time slots data or module here
 
-function TimeSlot({ selectedDate }) {
+function TimeSlot({ selectedDate, onTimeSelect }) {
   const [timeIntervals, setTimeIntervals] = useState([]);
   const [selectedInterval, setSelectedInterval] = useState(null);
 
   useEffect(() => {
+   
+    const timeSlotsData = TimeSlots.map(time => ({
+      time,
+      isPast: isPastTime(time), // Implement isPastTime function
+    }));
+    setTimeIntervals(timeSlotsData);
+  }, []);
+
+  const handleIntervalClick = (timeInterval) => {
+    if (!timeInterval.isPast) {
+      setSelectedInterval(timeInterval);
+      // onTimeSelect(timeInterval.time);
+    }
+  };
+
+  const isPastTime = (time) => {
+    
     const currentTime = new Date();
-
-    const startTime = new Date();
-    startTime.setHours(9, 0, 0, 0); // 9:00 AM
-
-    const endTime = new Date();
-    endTime.setHours(22, 0, 0, 0); // 10:00 PM
-
-    const intervals = [];
-
-    let currentTimeSlot = new Date(startTime);
-
-    while (currentTimeSlot <= endTime) {
-      const formattedTime = currentTimeSlot.toLocaleTimeString('en-US', {
-        hour: 'numeric',
-        minute: 'numeric',
-        hour12: true,
-      });
-
-      // Compare selectedDate with today's date
-      const isToday = selectedDate.toDateString() === currentTime.toDateString();
-
-      // Check if the time slot is in the past and it's today's date
-      const isPast = isToday && currentTimeSlot < currentTime;
-
-      intervals.push({
-        time: formattedTime,
-        isPast: isPast,
-      });
-
-      currentTimeSlot.setHours(currentTimeSlot.getHours() + 1);
-    }
-
-    setTimeIntervals(intervals);
-  }, [selectedDate]);
-
-  const handleIntervalClick = (index) => {
-    if (!timeIntervals[index].isPast) {
-      setSelectedInterval(index);
-    }
+    const selectedTime = new Date(selectedDate + ' ' + time); // Combine selectedDate and time
+    return selectedTime < currentTime;
   };
 
   return (
     <div className='mt-14'>
       <h1 className='text-xl font-semibold my-8'>Select Time</h1>
-      <div className='grid md:grid-cols-5 grid-cols-2 gap-8'>
+      <div className='grid lg:grid-cols-4  md:grid-cols-3 sm:grid-cols-2 grid-cols-1 gap-8'>
         {timeIntervals.map((timeInterval, index) => (
           <p
             className={`border-2 rounded-md p-2 cursor-pointer duration-300 ${
-              selectedInterval === index
+              selectedInterval === timeInterval
                 ? 'bg-blue-500 text-white'
                 : timeInterval.isPast
                 ? 'bg-gray-300 text-gray-500 cursor-not-allowed'
@@ -62,7 +43,8 @@ function TimeSlot({ selectedDate }) {
             }`}
             key={index}
             onClick={() => {
-              handleIntervalClick(index);
+              handleIntervalClick(timeInterval);
+              onTimeSelect(timeInterval.time)
             }}
           >
             {timeInterval.time}

@@ -65,9 +65,9 @@ const About = () => {
           </div>
           {/* ==========Testimonial======= */}
 
-          <div className="testimonial bg-red-500 max-w-[600px] h-[300px] mx-auto">
-              
-          </div>
+          {/* <div className="testimonial bg-red-500 max-w-[600px] h-[300px] mx-auto">
+            
+          </div> */}
         </section>
       </section>
       <BookingWrapper/>
