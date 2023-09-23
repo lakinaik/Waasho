@@ -2,75 +2,120 @@ import Footer from "../Components/Footer";
 
 import Header from "../Components/Header";
 import Bredcrumb from "../Components/Bredcrumb";
-import img1 from "../assets/car-wash-3960877_1280.jpg";
-import img2 from "../assets/slide-2.jpg";
-import BookingWrapper from "../Components/BookingWrapper";
-import TeamCard from "../Components/TeamCard";
+import SaveMessageBanner from "../Components/SaveMessageBanner";
 
-import member1 from '../assets/member1.jpg'
-import member2 from '../assets/member2.jpg'
-import member3 from '../assets/member3.jpg'
-import member4 from '../assets/member4.jpg'
-
+import aboutBanner from "../assets/about-banner.png";
 
 const About = () => {
   return (
     <>
       <Header />
       <Bredcrumb page={"About"} />
-      <section className="about ">
-        <div className="grid md:grid-cols-2 grid-cols-1 gap-4 md:my-10 my-6 md:px-20 px-4">
-          <img src={img1} alt="img" />
-          <img src={img2} alt="img" />
+      <section className="about">
+        <div className="px-6">
+          <SaveMessageBanner />
         </div>
 
-        <div className="grid md:grid-cols-3 grid-cols-1 gap-8 md:my-10 my-6 md:px-16 px-4">
+        <div className="md:px-14 py-2 px-6">
+          <h2 className="md:text-5xl text-3xl text-blue-950 font-sans font-bold my-4 text-center">
+          Welcome to <span className="md:text-6xl text-3xl text-sky-500">Waasho</span> Premium Car Care Company.
+          </h2>
+          <p className="text-blue-900 md:text-2xl text-lg"><em>"Say Goodbye to Wasting Water: Discover the Power of{" "}
+            <span className="font-bold text-sky-600">Waterless</span> Car
+            Cleaning!"</em></p>
+          <p className="text-lg">
+             With our revolutionary{" "}
+            <span className="font-bold text-sky-600">waterless</span> car
+            cleaning technology, you can finally bid farewell to the wasteful
+            practice of traditional car washing. We Deliver a more sustainable
+            and <span className="text-green-600 font-bold">eco - friendly</span> way to care for your vehicle. Our innovative
+            solutions harness cutting-edge cleaning agents that require no
+            water, yet they deliver a pristine, showroom-worthy shine. By
+            choosing <span className="font-bold text-sky-600">waterless</span>{" "}
+            car cleaning, you're not only preserving this precious resource but
+            also saving time and energy. It's time to make a positive impact on
+            both your car and the <span className="text-green-600 font-bold">environment</span> - all while enjoying the
+            incredible convenience and effectiveness of our{" "}
+            <span className="font-bold text-sky-600">waterless</span> cleaning
+            products. Join the movement and experience the future of car care
+            today!
+          </p>
+        </div>
+
+        <div className="grid md:grid-cols-2 grid-cols-1 gap-8 md:my-10 my-6 md:px-16 px-6">
           <div className="left">
             <p className="text-xl font-medium text-sky-600 relative after:content-[''] after:h-[2px] after:w-14 after:bg-blue-500 after:absolute after:top-1/2 after:ms-1">
-              Write a Message
+              About Waasho
             </p>
-            <h2 className="md:text-5xl text-2xl font-semibold my-3 text-cyan-950">
-              We're the Leading Carwash Center For You
+            <h2 className="md:text-4xl text-2xl font-semibold my-2 text-cyan-950">
+              We're the Leading{" "}
+              <span className="font-bold text-sky-600">Waterless</span> Carwash
+              Company
             </h2>
           </div>
           <div className="right md:col-span-2">
-            <p className="text-orange-500 text-3xl mb-8">
-              We have 30+ years of experiences for give you better quality
+            <p className="text-blue-950 text-3xl mb-8">
+              We have 05+ years of experiences for give you better quality
               results.
             </p>
-            <p className="text-slate-600 text-xl">
-              There are many variations of passages of Lorem Ipsum available,
-              but the majority have suffered alteration in some form, by
-              injected humour, or randomised words which don't look even you are
-              going to use a passage. consectetur adipiscing elit.{" "}
+            <p className="text-slate-600 text-lg">
+              We are the premier{" "}
+              <span className="font-bold text-sky-600">Waterless</span> Carwash
+              Company, setting the industry standard for eco-friendly automotive
+              care. With a commitment to <span className="text-green-400 font-semibold">environmental</span> sustainability and a
+              passion for impeccable car detailing, we have become the trusted
+              choice for car owners worldwide. Our innovative{" "}
+              <span className="font-bold text-sky-600">waterless</span>{" "}
+              technology not only conserves precious resources but also delivers
+              a showroom shine without harming the planet.
+            </p>
+            <p className="text-lg my-2 text-slate-600">
+            Our  <span className="font-bold text-sky-600">waterless</span> car wash company is dedicated to revolutionizing the way vehicles are cleaned and maintained. With a strong commitment to <span className="text-green-400 font-semibold">environmental</span> sustainability, we offer a convenient and eco-friendly solution to car cleaning. Our advanced  <span className="font-bold text-sky-600">waterless</span> car wash products not only save thousands of gallons of water but also deliver exceptional cleaning results, leaving your vehicle looking pristine without harming the planet. Our team of skilled professionals is passionate about providing top-notch service to our customers, ensuring their cars are not only spotless but also contributing to a greener future. Join us in the journey towards a cleaner, more sustainable automotive industry.
             </p>
           </div>
         </div>
-        <section className="team md:my-10 my-8 bg-slate-100 md:px-20 px-4 py-10">
+        {/* <section className="team md:my-10 my-8 bg-slate-100 md:px-20 px-4 py-10">
           <div className="header mx-auto text-center md:w-[32rem]">
             <p className="text-lg font-medium text-sky-600 relative after:content-[''] after:h-[2px] after:w-14 after:bg-blue-500 after:absolute after:top-1/2 after:ms-1">
-            Meet Our Team
+              Meet Our Team
             </p>
             <h2 className="md:text-5xl text-2xl font-semibold my-3 text-cyan-950">
-            Meet Our Professional Skilled Staff
+              Meet Our Professional Skilled Staff
             </h2>
           </div>
           <div className="team-member-wrapper">
             <div className="grid lg:grid-cols-4 md:grid-cols-2 grid-cols-1 gap-14 my-14">
-                <TeamCard img={member1} name={"John doe"} position={"Owner/Consultant"} fbLink={'/'}InstaLink={'/'} twitLink={'/'}/>
-                <TeamCard img={member2} name={"John doe"} position={"Owner/Consultant"} fbLink={'/'}InstaLink={'/'} twitLink={'/'}/>
-                <TeamCard img={member3} name={"John doe"} position={"Owner/Consultant"} fbLink={'/'}InstaLink={'/'} twitLink={'/'}/>
-                <TeamCard img={member4} name={"John doe"} position={"Owner/Consultant"} fbLink={'/'}InstaLink={'/'} twitLink={'/'}/>
+              <TeamCard
+                img={member1}
+                name={"John doe"}
+                position={"Owner/Consultant"}
+                fbLink={"/"}
+                InstaLink={"/"}
+                twitLink={"/"}
+              />
+              <TeamCard
+                img={member2}
+                name={"John doe"}
+                position={"Owner/Consultant"}
+                fbLink={"/"}
+                InstaLink={"/"}
+                twitLink={"/"}
+              />
+              <TeamCard
+                img={member3}
+                name={"John doe"}
+                position={"Owner/Consultant"}
+                fbLink={"/"}
+                InstaLink={"/"}
+                twitLink={"/"}
+              />
             </div>
           </div>
-          {/* ==========Testimonial======= */}
-
-          {/* <div className="testimonial bg-red-500 max-w-[600px] h-[300px] mx-auto">
-            
-          </div> */}
-        </section>
+        </section> */}
       </section>
-      <BookingWrapper/>
+      <div className="my-2">
+        <img src={aboutBanner} alt="" />
+      </div>
       <Footer />
     </>
   );

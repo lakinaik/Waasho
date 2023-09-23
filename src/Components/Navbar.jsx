@@ -1,13 +1,17 @@
 import React, { useState } from "react";
-import Logo from "../assets/white_blue__logo_2.png";
+import Logo from "../assets/waasho-logo-1.png";
 import { Link, NavLink } from "react-router-dom";
 import { TfiMenu } from "react-icons/tfi";
 import { FaFacebookF, FaPinterestP, FaWhatsapp } from "react-icons/fa";
 import { AiOutlineInstagram } from "react-icons/ai";
 import { GrFormClose } from "react-icons/gr";
-
 import "../App.css";
 import { useAuth } from "./context/auth";
+
+import facebook from "../assets/facebook.png";
+import instagram from "../assets/instagram.png";
+import whatsapp from "../assets/whatsapp.png";
+import linkedin from "../assets/linkedin.png";
 
 const Navbar = () => {
   const [show, setShow] = useState(false);
@@ -25,14 +29,10 @@ const Navbar = () => {
   return (
     <>
       <nav>
-        <div className="w-full bg-white shadow-md mx-auto flex items-center sticky top-0 z-50 sm:px-14 px-2">
-          <div className="logo-container  inline-block h-full bg-sky-700">
-            <Link to={"/"} className="m-0">
-              <img
-                src={Logo}
-                alt="logo"
-                className="w-16"
-              />
+        <div className="w-full bg-white shadow-md mx-auto flex items-center sticky top-0 z-40 sm:px-14 px-2 py-4">
+          <div className="logo-container">
+            <Link to={"/"} className="m-0 p-0">
+              <img src={Logo} alt="logo" className="ms-6 w-24" />
             </Link>
           </div>
           <div className="navlist w-full flex justify-end items-center pe-4 py-2">
@@ -47,6 +47,12 @@ const Navbar = () => {
                 <NavLink to={"/services"}>Services</NavLink>
               </li>
               <li className="navlink text-lg font-medium">
+                <NavLink to={"/franchise"}>Franchise</NavLink>
+              </li>
+              <li className="navlink text-lg font-medium">
+                <NavLink to={"/reviews"}>Reviews</NavLink>
+              </li>
+              <li className="navlink text-lg font-medium">
                 <NavLink to={"/about"}>About</NavLink>
               </li>
               <li className="navlink text-lg font-medium">
@@ -54,34 +60,32 @@ const Navbar = () => {
               </li>
             </ul>
             <div className="hidden lg:block ps-1 ms-2 border-s-2">
-            {
-                !auth.user ? (
-                  <>
+              {!auth.user ? (
+                <>
                   <Link
-                to={"/login"}
-                className="text-lg m-2 rounded-md bg-blue-600 px-3 py-2 text-white duration-300 hover:bg-black"
-              >
-                Login
-              </Link>
-              <Link
-                to={"/register"}
-                className="text-lg m-2 rounded-md bg-blue-600 px-3 py-2 text-white duration-300 hover:bg-black "
-              >
-                Register
-              </Link>
-                  </>
-                ) : (
-                  <>
-                   <Link
-                   onClick={handleLogout}
-                to={"/login"}
-                className="text-lg m-2 rounded-md bg-blue-600 px-3 py-2 text-white duration-300 hover:bg-black "
-              >
-                Logout
-              </Link>
-                  </>
-                )
-              }
+                    to={"/login"}
+                    className="text-lg m-2 rounded-md bg-blue-600 px-3 py-2 text-white duration-300 hover:bg-black"
+                  >
+                    Login
+                  </Link>
+                  <Link
+                    to={"/register"}
+                    className="text-lg m-2 rounded-md bg-blue-600 px-3 py-2 text-white duration-300 hover:bg-black "
+                  >
+                    Register
+                  </Link>
+                </>
+              ) : (
+                <>
+                  <Link
+                    onClick={handleLogout}
+                    to={"/login"}
+                    className="text-lg m-2 rounded-md bg-blue-600 px-3 py-2 text-white duration-300 hover:bg-black "
+                  >
+                    Logout
+                  </Link>
+                </>
+              )}
             </div>
             {/* ======humbergur====== */}
             <button
@@ -123,6 +127,12 @@ const Navbar = () => {
                   <NavLink to={"/services"}>Services</NavLink>
                 </li>
                 <li className="navlink text-lg font-medium">
+                  <NavLink to={"/franchise"}>Franchise</NavLink>
+                </li>
+                <li className="navlink text-lg font-medium">
+                  <NavLink to={"/reviews"}>Reviews</NavLink>
+                </li>
+                <li className="navlink text-lg font-medium">
                   <NavLink to={"/about"}>About</NavLink>
                 </li>
                 <li className="navlink text-lg font-medium">
@@ -157,18 +167,18 @@ const Navbar = () => {
                   </>
                 )}
               </div>
-              <div className="social-links flex gap-3 text-lg items-center  text-white ps-3 mt-4">
+              <div className="social-links flex gap-3 text-lg items-center  text-white ps-3 mt-4 border-t py-3">
                 <Link>
-                  <FaFacebookF className="hover:text-white hover:scale-105 duration-300" />
+                  <img src={facebook} alt="img" className="w-8" />
                 </Link>
                 <Link>
-                  <AiOutlineInstagram className="hover:text-white hover:scale-105 duration-300" />
+                  <img src={instagram} alt="img" className="w-8" />
                 </Link>
                 <Link>
-                  <FaPinterestP className="hover:text-white hover:scale-105 duration-300" />
+                  <img src={whatsapp} alt="img" className="w-8" />
                 </Link>
                 <Link>
-                  <FaWhatsapp className="hover:text-white hover:scale-105 duration-300" />
+                  <img src={linkedin} alt="img" className="w-8" />
                 </Link>
               </div>
             </div>

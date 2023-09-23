@@ -1,21 +1,23 @@
 import React, { useState } from "react";
 import Footer from "../Components/Footer";
-import Logo from "../assets/white_blue__logo_2.png";
+import Logo from "../assets/waasho-logo-1.png";
 import { GrMail } from "react-icons/gr";
 import { AiFillLock } from "react-icons/ai";
 import { AiOutlineEye, AiOutlineEyeInvisible } from "react-icons/ai";
-import { Link } from "react-router-dom";
 import Header from "../Components/Header";
-import Bredcrumb from "../Components/Bredcrumb";
-import leftImg from "../assets/istockphoto-1427943227-612x612.jpg";
+import leftImg from "../assets/logo3.png";
 import { useAuth } from "../Components/context/auth";
 import { toast } from "react-toastify";
+import { Link, useLocation, useNavigate } from 'react-router-dom';
 
 const Login = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [showPassword, setShowPassword] = useState(false);
   const [auth, setAuth] =useAuth()
+  const navigate = useNavigate()
+  const location = useLocation()
+  const [loader, setLoader] = useState(false)
 
   const handleShow = (e) => {
     e.preventDefault();
@@ -32,6 +34,7 @@ const Login = () => {
 
     try {
       // Make a POST request to your authentication API
+      setLoader(true)
       const response = await fetch(`${process.env.REACT_APP_API}/login`, {
         method: "POST",
         headers: {
@@ -58,13 +61,14 @@ const Login = () => {
           token,
         });
         localStorage.setItem('token', JSON.stringify(data))
-        window.location.href = "/";
+        navigate(location.state || '/')
       } else {
         toast.error("Wrong email or password !", {
           position: toast.POSITION.BOTTOM_RIGHT
         });
         console.log("failed to login");
       }
+      setLoader(false)
     } catch (error) {
       console.error("Login failed:", error);
     }
@@ -74,11 +78,10 @@ const Login = () => {
   return (
     <>
       <Header />
-      <Bredcrumb page={"Login"} />
       <section className="max-w-full flex items-center justify-center bg-[#dbe6ee]">
         <div className="bg-white rounded my-20 login p-4">
-          <div className="text-center bg-blue-900 px-2 text-white">
-            <img src={Logo} alt="logo" className="p-2 mx-auto" width={150} />
+          <div className="text-center bg-blue-900 px-2 text-white mx-auto">
+            <img src={Logo} alt="logo" className="p-2 w-40" />
             <span className="text-xl font-semibold relative bottom-4">
               Welcome back !
             </span>
@@ -152,10 +155,14 @@ const Login = () => {
                     type="submit"
                     className="bg-sky-500 text-white py-1 px-4 border-2 border-sky-500 rounded-lg duration-300 hover:bg-transparent hover:text-black"
                   >
-                    Login
+                    {
+                      loader ? "Processing": "Login"
+                    }
                   </button>
                 </div>
                 <div className="text-center font-medium">
+                  <Link to={"/forgotten-password"} className="text-blue-600 text-center">Forgotten Password?</Link><br />
+                  
                   <span>
                     Create a new account?
                     <Link to={"/register"} className="text-sky-700">

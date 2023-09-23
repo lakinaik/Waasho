@@ -1,6 +1,10 @@
 import React from "react";
 import Carousel from "react-multi-carousel";
 import "react-multi-carousel/lib/styles.css";
+import SectionHeader from "./SectionHeader";
+import offer1 from '../assets/offer-1.jpg'
+import offer2 from '../assets/offer-2.jpg'
+import offer3 from '../assets/offer-3.jpg'
 
 
 const TrendingOffers = () => {
@@ -25,37 +29,37 @@ const TrendingOffers = () => {
   return (
     <>
       <div className="top-offers-wrapper my-7 w-1000px">
-        <div className="section-heading-wrapper">
-          <h2 className="text-4xl font-bold text-center treding-heading">
-            Top Trending Offer
-          </h2>
-        </div>
+       
+       <SectionHeader text={"Top Trending Offer"}/>
 
-        <div className="carousel">
+        <div className="carousel mt-10">
           <Carousel
             className="relative"
             showDots={true}
             responsive={responsive}
             autoPlay={true}
-            autoPlaySpeed={1000}
+            autoPlaySpeed={3000}
             infinite={true}
           >
-            <div className="lg:w-[1100px] mx-auto">
+            <div className="lg:w-[700px] md:h-[300px] mx-auto overflow-hidden">
               <img
-                src="https://fixigo.in/FixigoAssets2023/images/wheel_care%20services.png"
-                alt=""
+                src={offer1}
+                alt="" 
+                className="w-full"
               />
             </div>
-            <div className="lg:w-[1100px] mx-auto">
+            <div className="lg:w-[700px] md:h-[300px] mx-auto overflow-hidden">
               <img
-                src="https://fixigo.in/FixigoAssets2023/images/car_service.png"
-                alt=""
+                src={offer2}
+                alt="img"
+                className="w-full"
               />
             </div>
-            <div className="lg:w-[1100px] mx-auto">
+            <div className="lg:w-[700px] md:h-[300px] mx-auto overflow-hidden">
               <img
-                src="https://fixigo.in/FixigoAssets2023/images/car_acservice.png"
-                alt=""
+                src={offer3}
+                alt="img"
+                className="w-full"
               />
             </div>
           </Carousel>

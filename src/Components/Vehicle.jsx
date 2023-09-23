@@ -1,21 +1,20 @@
+import VehicleTypeCard from "./VehicleTypeCard";
+import hatchback from '../assets/hatchback.png'
+import sedan from '../assets/sedan-car.png'
+import suv from '../assets/suv-car.png'
+import lamborghini from '../assets/lamborghini-car.png'
 
-const Vehicle = ({ text, img, onSelect, isSelected }) => {
-  const handleClick = () => {
-    if (text !== null && text !== undefined) {
-      onSelect(text);
-    }
-   
-  };
+
+const Vehicle = ({ onSelect, onSecSelect }) => {
   return (
-    <div
-      className={`border px-3 py-1 grid place-items-center duration-300 hover:bg-blue-500 ${
-        isSelected ? 'bg-blue-500' : ''
-      }`}
-      onClick={handleClick}
-    >
-      <img src={img} alt="img" className="w-20" />
-      <h2 className="md:text-xl text-sm font-semibold relative bottom-[15px]">{text}</h2>
-    </div>
+   <>
+     <div className="grid md:grid-cols-2 lg:grid-cols-4 grid-cols-1 gap-8">
+            <VehicleTypeCard img={hatchback} title={"HATCHBACK"} price={"299"} onSelect={onSelect}/>
+            <VehicleTypeCard img={sedan} title={"SEDAN"} price={"299"} onSelect={onSelect}/>
+            <VehicleTypeCard img={suv} title={"SUV"} price={"399"} onSelect={onSecSelect}/>
+            <VehicleTypeCard img={lamborghini} title={"PREMIUM"} price={"399"} onSelect={onSecSelect}/>
+        </div>
+   </>
   );
 };
 

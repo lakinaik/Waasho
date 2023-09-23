@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import Footer from "../Components/Footer";
-import Logo from "../assets/white_blue__logo_2.png";
+import Logo from "../assets/waasho-logo-1.png";
 import { BiSolidUser } from "react-icons/bi";
 import { GrMail } from "react-icons/gr";
 import { BsTelephoneFill } from "react-icons/bs";
@@ -11,9 +11,8 @@ import {
 } from "react-icons/ai";
 
 import { Link } from "react-router-dom";
-import regImg from "../assets/istockphoto-1427943227-612x612.jpg";
+import regImg from "../assets/logo3.png";
 import Header from "../Components/Header";
-import Bredcrumb from "../Components/Bredcrumb";
 import { toast } from "react-toastify";
 
 const Register = () => {
@@ -23,14 +22,15 @@ const Register = () => {
     email: "",
     phone: "",
     password: "",
-    term: false, 
-    });
+    term: false,
+  });
   const [formErrors, setFormErrors] = useState({
     fullname: false,
     email: false,
     phone: false,
     password: false,
   });
+  const [loader, setLoader] = useState(false)
 
   const handleShow = (e) => {
     e.preventDefault();
@@ -39,16 +39,35 @@ const Register = () => {
 
   const handleInputChange = (e) => {
     const { name, value, type, checked } = e.target;
-    // Update the formData based on the input type (text or checkbox)
-    setFormData({
-      ...formData,
-      [name]: type === "checkbox" ? checked : value,
-    });
-    // Remove the red border when user types in an input field
-    setFormErrors({
-      ...formErrors,
-      [name]: false,
-    });
+
+    // Define a regular expression pattern for a strong password
+    const passwordPattern = /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[\W_]).{8,}$/;
+
+    // Check if the input is for the password field
+    if (name === "password") {
+      // Test the password against the pattern
+      const isValidPassword = passwordPattern.test(value);
+
+      // Update the formData and formErrors accordingly
+      setFormData({
+        ...formData,
+        [name]: value,
+      });
+      setFormErrors({
+        ...formErrors,
+        [name]: !isValidPassword, // Set to true if password is invalid
+      });
+    } else {
+      // For other fields, update formData and remove any previous error
+      setFormData({
+        ...formData,
+        [name]: type === "checkbox" ? checked : value,
+      });
+      setFormErrors({
+        ...formErrors,
+        [name]: false, // Remove the error for this field
+      });
+    }
   };
 
   const handleSubmit = async (e) => {
@@ -56,63 +75,76 @@ const Register = () => {
 
     const { fullname, email, phone, password } = formData;
 
-if(!formData.term){
-  toast.error("Agree term & condition",{
-    position: toast.POSITION.BOTTOM_RIGHT
-  })
-  return;
-}
+    if (!formData.term) {
+      toast.error("Agree to terms & conditions", {
+        position: toast.POSITION.BOTTOM_RIGHT,
+      });
+      return;
+    }
 
     try {
-
+      setLoader(true)
       await fetch(`${process.env.REACT_APP_API}/register`, {
         method: "POST",
         headers: {
           Accept: "application/json",
-          "Content-Type": "application/json"
+          "Content-Type": "application/json",
         },
         body: JSON.stringify({
           fullname,
           email,
           phone,
-          password
-        })
+          password,
+        }),
       }).then((response) => {
         if (response.status === 200) {
-          toast.success("Registered successfully !", {
-            position: toast.POSITION.BOTTOM_RIGHT
+          toast.success("Registered successfully!", {
+            position: toast.POSITION.BOTTOM_RIGHT,
           });
           window.location.href = "/login";
-        } else {
-          toast.error("Something went wrong !",{
-            position: toast.POSITION.BOTTOM_RIGHT
-          })
+        } 
+        else if(response.status === 422){
+          toast.error("Email already exists!", {
+            position: toast.POSITION.BOTTOM_RIGHT,
+          });
         }
-      })
-
+        else {
+          toast.error("Something went wrong!", {
+            position: toast.POSITION.BOTTOM_RIGHT,
+          });
+        }
+      });
     } catch (error) {
       console.error("register failed:", error);
     }
-
   };
 
   return (
     <>
       <Header />
-      <Bredcrumb page={'Register'} />
       <section className="register max-w-full flex items-center justify-center md:pt-8 bg-[#dbe6ee]">
         <div className="bg-white rounded register my-8 p-4">
           <div className="text-center bg-blue-900 px-2 text-white">
             <img src={Logo} alt="logo" className="p-2 mx-auto" width={150} />
-            <span className="text-xl font-semibold relative bottom-4">Create a new account</span>
+            <span className="text-xl font-semibold relative bottom-4">
+              Create a new account
+            </span>
           </div>
           <div className=" grid md:grid-cols-2 gap-4">
             <div className="reg-img">
               <img src={regImg} alt="img" className="md:w-[430px]" />
             </div>
             <div>
-              <form onSubmit={handleSubmit} method="POST" className="my-4">
-                <div className={`border-2 border-sky-500 p-2 mb-4 rounded ${formErrors.fullname && 'border-red-500'}`}>
+              <form
+                onSubmit={handleSubmit}
+                method="POST"
+                className="my-4"
+              >
+                <div
+                  className={`border-2 border-sky-500 p-2 mb-4 rounded ${
+                    formErrors.fullname && "border-red-500"
+                  }`}
+                >
                   <BiSolidUser className="inline me-2" />
                   <input
                     type="text"
@@ -125,7 +157,11 @@ if(!formData.term){
                     required
                   />
                 </div>
-                <div className={`border-2 border-sky-500 p-2 mb-4 rounded ${formErrors.email && 'border-red-500'}`}>
+                <div
+                  className={`border-2 border-sky-500 p-2 mb-4 rounded ${
+                    formErrors.email && "border-red-500"
+                  }`}
+                >
                   <GrMail className="inline me-2" />
                   <input
                     type="email"
@@ -138,7 +174,11 @@ if(!formData.term){
                     required
                   />
                 </div>
-                <div className={`border-2 border-sky-500 p-2 mb-4 rounded ${formErrors.phone && 'border-red-500'}`}>
+                <div
+                  className={`border-2 border-sky-500 p-2 mb-4 rounded ${
+                    formErrors.phone && "border-red-500"
+                  }`}
+                >
                   <BsTelephoneFill className="inline me-2" />
                   <input
                     type="text"
@@ -151,7 +191,11 @@ if(!formData.term){
                     required
                   />
                 </div>
-                <div className={`border-2 border-sky-500 p-2 mb-4 ${formErrors.password && 'border-red-500'}`}>
+                <div
+                  className={`border-2 border-sky-500 p-2 mb-4 ${
+                    formErrors.password && "border-red-500"
+                  }`}
+                >
                   <AiFillLock className="inline me-2" />
                   {showPassword ? (
                     <input
@@ -204,15 +248,20 @@ if(!formData.term){
                   </label>
                 </div>
                 <div className="text-center my-4">
-                  <button type="submit" className="bg-sky-500 text-white py-1 px-4 border-2 border-sky-500 rounded-lg duration-300 hover:bg-transparent hover:text-black">
-                    Register
+                  <button
+                    type="submit"
+                    className="bg-sky-500 text-white py-1 px-4 border-2 border-sky-500 rounded-lg duration-300 hover:bg-transparent hover:text-black"
+                  >
+                    {
+                        loader ? "Processing" : "Register"
+                      }
                   </button>
                 </div>
                 <div className="text-center font-medium">
                   <span>
                     Already have an account?{" "}
                     <Link to={"/login"} className="text-sky-700">
-                      Login
+                    Login
                     </Link>{" "}
                   </span>
                 </div>

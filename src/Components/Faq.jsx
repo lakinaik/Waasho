@@ -27,10 +27,7 @@ const Faq = () => {
                 Why You Should Choose Our Services
               </h2>
               <p className="text-lg my-8 text-slate-500">
-                There are many variations of passages of but the majority have
-                in some form, by injected humou or words which don't look even
-                slightly believable of but the majority have suffered look even
-                slightly believable of but the majority have suffered.
+              Our waterless car wash company is dedicated to revolutionizing the way vehicles are cleaned and maintained. With a strong commitment to environmental sustainability, we offer a convenient and eco-friendly solution to car cleaning. Our advanced waterless car wash products not only save thousands of gallons of water but also deliver exceptional cleaning results, leaving your vehicle looking pristine without harming the planet. Our team of skilled professionals is passionate about providing top-notch service to our customers, ensuring their cars are not only spotless but also contributing to a greener future. Join us in the journey towards a cleaner, more sustainable automotive industry.
               </p>
 
               <div className="flex gap-8 flex-wrap justify-center">
