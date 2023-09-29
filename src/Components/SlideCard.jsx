@@ -1,5 +1,6 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
+import PropTypes from 'prop-types';
 
 
 const SlideCard = ({img,text,desc}) => {
@@ -23,5 +24,12 @@ const SlideCard = ({img,text,desc}) => {
     </>
   )
 }
+// Add PropTypes validation for your props
+SlideCard.propTypes = {
+  img: PropTypes.string.isRequired,
+  text: PropTypes.string.isRequired,
+  desc: PropTypes.string.isRequired,
+};
+
 
 export default SlideCard

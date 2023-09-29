@@ -1,4 +1,6 @@
 import BookButton from "./BookButton"
+import React from "react"
+import PropTypes from 'prop-types'; 
 
 const ServicePlan =({icon, title})=>{
     return(
@@ -18,5 +20,9 @@ const ServicePlan =({icon, title})=>{
         </>
     )
 }
+ServicePlan.propTypes = {
+    icon: PropTypes.string.isRequired,
+    title: PropTypes.string.isRequired,
+  };
 
 export default ServicePlan

@@ -1,23 +1,37 @@
 import React, { useState } from "react";
 import { useAuth } from "./context/auth";
-
+import { toast } from "react-toastify";
+import PropTypes from "prop-types"; 
 const BookingForm = ({ vehicle, plans }) => {
   const vehicleTypes = vehicle.title;
   const [auth] = useAuth();
-  const names = auth?.user?.fullname
+  const names = auth?.user?.fullname;
   const [name, setName] = useState(names);
+  const [phone, setPhone] = useState("");
   const [address, setAdddress] = useState("");
   const [city, setCity] = useState("");
   const [vehicleType, setVehicleType] = useState(vehicleTypes);
-  const [vehicleManufacturer, setVehicleManufacturer] = useState("");
+  const [vehicleNo, setVehicleNo] = useState("");
   const [vehicleModel, setVehicleModel] = useState("");
+  const [modelYear, setModelYear] = useState("");
   const [date, setDate] = useState("");
   const [time, setTime] = useState("");
-const email = auth?.user?.email
-console.log(email)
+  const [loading, setLoading] = useState(false);
+  const [phoneValid, setPhoneValid] = useState(true);
+
+
+  const email = auth?.user?.email;
+  const validPattern = /^[0-9]{10}$/;
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    setLoading(true);
+    if(!phoneValid){
+      toast.error("Enter a valid phone number", {
+        position: toast.POSITION.BOTTOM_RIGHT,
+      });
+    return;
+    }
     try {
       const res = await fetch(`${process.env.REACT_APP_API}/booking`, {
         method: "POST",
@@ -29,21 +43,30 @@ console.log(email)
           vehicle,
           plans,
           name,
+          email,
+          phone,
           address,
           city,
           vehicleType,
-          vehicleManufacturer,
+          vehicleNo,
           vehicleModel,
+          modelYear,
           date,
           time,
         }),
       });
       if (res.status === 200) {
-        window.location.href = "/";
+        toast.success("Booking Successfull", {
+          position: toast.POSITION.BOTTOM_RIGHT,
+        });
+        setTimeout(() => {
+          window.location.href = "/";
+        }, 1000);
       }
     } catch (error) {
       console.log(error);
     }
+    setLoading(false);
   };
 
   return (
@@ -59,15 +82,47 @@ console.log(email)
             </label>
             <br />
             <input
-              className="py-2 ps-6 border-2 outline-0 text-lg text-slate-700 w-full rounded-full focus:outline-2 focus:outline-blue-700"
+              className="py-2 ps-6 border-2 outline-0 text-lg text-slate-700 w-full rounded-md focus:outline-2 focus:outline-blue-700"
               type="text"
               name="name"
               id="name"
               placeholder="Enter your name"
               value={name}
-              onChange={(e) => setName(e.target.value)}
+              onChange={(e) => {
+                const inputName = e.target.value;
+                const validName = inputName.replace(/[^A-Za-z\s]/g, "");
+                setName(validName);
+              }}
               required
             />
+          </div>
+          <div>
+            <label
+              htmlFor="phone"
+              className="text-lg font-semibold text-slate-800"
+            >
+              Phone Number
+            </label>
+            <br />
+            <input
+              className="py-2 ps-6 border-2 outline-0 text-lg text-slate-700 w-full rounded-md focus:outline-2 focus:outline-blue-700"
+              type="number"
+              name="phone"
+              id="phone"
+              placeholder="Enter your phone number"
+              value={phone}
+              onChange={(e) => {
+                setPhone(e.target.value);
+                setPhoneValid(validPattern.test(e.target.value));
+              }}
+              required
+            />{" "}
+            <br />
+            {!phoneValid && (
+              <p className="text-red-600 text-[0.9rem]">
+                Please enter 10 digit valid phone number
+              </p>
+            )}
           </div>
           <div>
             <label
@@ -78,7 +133,7 @@ console.log(email)
             </label>
             <br />
             <input
-              className="py-2 ps-6 border-2 outline-0 text-lg text-slate-700 w-full rounded-full focus:outline-2 focus:outline-blue-700"
+              className="py-2 ps-6 border-2 outline-0 text-lg text-slate-700 w-full rounded-md focus:outline-2 focus:outline-blue-700"
               type="text"
               name="address"
               id="address"
@@ -101,7 +156,7 @@ console.log(email)
               id="city"
               value={city}
               onChange={(e) => setCity(e.target.value)}
-              className="py-2 ps-6 border-2 outline-0 text-lg text-slate-700 w-full rounded-full focus:outline-2 focus:outline-blue-700"
+              className="py-2 ps-6 border-2 outline-0 text-lg text-slate-700 w-full rounded-md focus:outline-2 focus:outline-blue-700"
               required
             >
               <option value="">Choose City</option>
@@ -130,7 +185,7 @@ console.log(email)
               placeholder=""
               readOnly
               required
-              className="py-2 px-6 border-2 outline-0 text-lg text-slate-700 w-full rounded-full focus:outline-2 focus:outline-blue-700"
+              className="py-2 px-6 border-2 outline-0 text-lg text-slate-700 w-full rounded-md focus:outline-2 focus:outline-blue-700"
             />
           </div>
           <div>
@@ -138,16 +193,17 @@ console.log(email)
               htmlFor="vehicleManufacturer"
               className="text-lg font-semibold text-slate-800"
             >
-              Vehicle Manufacturers
+              Vehicle Number
             </label>
             <br />
             <input
-              className="py-2 ps-6 border-2 outline-0 text-lg text-slate-700 w-full rounded-full focus:outline-2 focus:outline-blue-700"
+              className="py-2 ps-6 border-2 outline-0 text-lg text-slate-700 w-full rounded-md focus:outline-2 focus:outline-blue-700"
               type="text"
-              name="vehicleManufacturer"
-              id="vehicleManufacturer"
-              value={vehicleManufacturer}
-              onChange={(e) => setVehicleManufacturer(e.target.value)}
+              name="vehicleNo"
+              id="vehicleNo"
+              placeholder="Enter vehicle number"
+              value={vehicleNo}
+              onChange={(e) => setVehicleNo(e.target.value)}
               required
             />
           </div>
@@ -160,13 +216,32 @@ console.log(email)
             </label>
             <br />
             <input
-              className="py-2 ps-6 border-2 outline-0 text-lg text-slate-700 w-full rounded-full focus:outline-2 focus:outline-blue-700"
+              className="py-2 ps-6 border-2 outline-0 text-lg text-slate-700 w-full rounded-md focus:outline-2 focus:outline-blue-700"
               type="text"
               name="vehicleModel"
               id="vehicleModel"
+              placeholder="Enter vehicle model"
               value={vehicleModel}
               onChange={(e) => setVehicleModel(e.target.value)}
               required
+            />
+          </div>
+          <div>
+            <label
+              htmlFor="modelYear"
+              className="text-lg font-semibold text-slate-800"
+            >
+              {`Model Year (Optional)`}
+            </label>
+            <br />
+            <input
+              className="py-2 ps-6 border-2 outline-0 text-lg text-slate-700 w-full rounded-md focus:outline-2 focus:outline-blue-700"
+              type="text"
+              name="modelYear"
+              id="modelYear"
+              placeholder="Enter model year"
+              value={modelYear}
+              onChange={(e) => setModelYear(e.target.value)}
             />
           </div>
           <div>
@@ -185,7 +260,7 @@ console.log(email)
               value={date}
               onChange={(e) => setDate(e.target.value)}
               required
-              className="py-2 px-6 border-2 outline-0 text-lg text-slate-700 w-full rounded-full focus:outline-2 focus:outline-blue-700"
+              className="py-2 px-6 border-2 outline-0 text-lg text-slate-700 w-full rounded-md focus:outline-2 focus:outline-blue-700"
             />
           </div>
           <div>
@@ -203,21 +278,27 @@ console.log(email)
               value={time}
               onChange={(e) => setTime(e.target.value)}
               required
-              className="py-2 px-6 border-2 outline-0 text-lg text-slate-700 w-full rounded-full focus:outline-2 focus:outline-blue-700"
+              className="py-2 px-6 border-2 outline-0 text-lg text-slate-700 w-full rounded-md focus:outline-2 focus:outline-blue-700"
             />
           </div>
         </div>
-        <div className="flex justify-end">
+        <div className="px-3">
           <button
             type="submit"
-            className={`bg-blue-700 text-white text-lg font-semibold px-4 py-2 rounded-3xl duration-500 hover:bg-blue-900 hover:text-white`}
+            className={`bg-blue-600 w-full text-white text-lg font-semibold px-4 py-2 rounded-md duration-500 hover:bg-blue-900 hover:text-white`}
           >
-            Confirm Booking
+            {
+                      loading ? `Processing ...`: "Book now"
+                    }
           </button>
         </div>
       </form>
     </>
   );
+};
+BookingForm.propTypes = {
+  vehicle: PropTypes.object.isRequired, 
+  plans: PropTypes.array.isRequired,    
 };
 
 export default BookingForm;

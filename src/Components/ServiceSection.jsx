@@ -19,7 +19,7 @@ const ServiceSection = () => {
           <h4 className="md:text-lg font-medium text-sky-600 relative after:content-[''] after:h-[2px] after:w-14 after:bg-blue-500 after:absolute after:top-1/2 after:ms-1">
             Waterless Car Wash
           </h4>
-          <h1 className="md:text-5xl text-xl font-bold my-4">Services We're Providing <br /> to Customers</h1>
+          <h1 className="md:text-5xl text-xl font-bold my-4">{`Services We're Providing To Customers`}</h1>
         </div>
         <div className="flex justify-center items-center">
         <div className="service-wrapper max-w-[1200px] grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5 mx-auto my-8">

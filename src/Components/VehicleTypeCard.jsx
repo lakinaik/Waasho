@@ -1,5 +1,5 @@
 import React from 'react'
-
+import PropTypes from 'prop-types';
 
 const VehicleTypeCard = ({img, title, price, onSelect}) => {
   return (
@@ -18,5 +18,11 @@ const VehicleTypeCard = ({img, title, price, onSelect}) => {
     </>
   )
 }
+VehicleTypeCard.propTypes = {
+  img: PropTypes.string.isRequired, 
+  title: PropTypes.string.isRequired,
+  price: PropTypes.number.isRequired,
+  onSelect: PropTypes.func.isRequired,
+};
 
 export default VehicleTypeCard

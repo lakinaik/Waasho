@@ -1,4 +1,5 @@
 import React from 'react'
+import PropTypes from 'prop-types'
 
 const FeaturesBannerCard = ({img}) => {
   return (
@@ -12,6 +13,10 @@ const FeaturesBannerCard = ({img}) => {
     </div>
     </>
   )
+}
+
+FeaturesBannerCard.propTypes = {
+  img: PropTypes.string.isRequired
 }
 
 export default FeaturesBannerCard

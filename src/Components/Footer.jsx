@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import { ImLocation } from "react-icons/im";
 import { MdCall } from "react-icons/md";
@@ -10,10 +10,45 @@ import whatsapp from "../assets/whatsapp.png";
 import linkedin from "../assets/linkedin.png";
 import { FaArrowRight } from "react-icons/fa";
 import Logo from "../assets/waasho-logo-1.png";
+import {toast} from 'react-toastify'
 
 import "../App.css";
 
 const Footer = () => {
+const [subscriber,setSubscriber] = useState("")
+
+  const handleSubmit = async (e) =>{
+    e.preventDefault();
+    try {
+      await fetch(`${process.env.REACT_APP_API}/subscribe`, {
+        method: "POST",
+        headers: {
+          Accept: "application/json",
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          subscriber
+        }),
+      }).then((response) => {
+        if (response.status === 200) {
+          toast.success("Subscribed Successfully!", {
+            position: toast.POSITION.BOTTOM_RIGHT,
+          });
+      setSubscriber("")
+        } else {
+          console.log("can not send message");
+          toast.error("Something went wrong !", {
+            position: toast.POSITION.BOTTOM_LEFT,
+          });
+        }
+      });
+    } catch (error) {
+      console.error("sending failed:", error);
+    }
+
+
+  }
+
   return (
     <>
       <footer className="footer-section">
@@ -22,12 +57,12 @@ const Footer = () => {
             <div className="logo-wrapper my-6">
               <img src={Logo} alt="logo" className="w-48 mx-auto" />
               <h2 className="text-white font-bold md:text-2xl text-xl text-center my-4">
-                India's <span className="text-sky-400">No. 1</span> Waterless
+                India&#39;s <span className="text-sky-400">No. 1</span> Waterless
                 Car Wash Company
               </h2>
             </div>
 
-            <div className="social-links flex gap-4 md:ms-12 justify-center">
+            <div className="social-links flex gap-4 justify-center">
               <Link>
                 <img src={facebook} alt="img" className="w-8" />
               </Link>
@@ -79,11 +114,11 @@ const Footer = () => {
                   stage, bangalore , 560076
                 </span>
               </Link>
-              <Link className="text-slate-400 duration-500 hover:text-white text-lg">
+              <Link to={"mailto:waashocare@gmail.com"} className="text-slate-400 duration-500 hover:text-white text-lg">
                 <AiOutlineMail className="inline text-orange-500 text-xl font-bold me-1" />
                 <span>waashocare@gmail.com</span>
               </Link>
-              <Link className="text-slate-400 duration-500 hover:text-white text-lg">
+              <Link to={"tel:+918926123232"} className="text-slate-400 duration-500 hover:text-white text-lg">
                 <MdCall className="inline text-orange-500 text-xl font-bold me-1" />
                 <span>+91 89261 23232</span>
               </Link>
@@ -95,18 +130,21 @@ const Footer = () => {
             </h2>
             <div>
               <p className="text-lg text-slate-400 mt-4">
-                Subscribe to our newsletter for daily new and updates.
+                Subscribe to our newsletter for daily new updates.
               </p>
-              <form>
+              <form onSubmit={handleSubmit}>
                 <input
                   type="text"
                   name="email"
                   id="email1"
                   placeholder="Email"
                   className="p-3 outline-0 mt-2"
+                  value={subscriber}
+                  required
+                  onChange={(e)=>setSubscriber(e.target.value)}
                 />
                 <button className="bg-blue-500 text-white p-3 font-semibold mt-4">
-                  Send <FaArrowRight className="inline" />
+                  Submit <FaArrowRight className="inline" />
                 </button>
               </form>
             </div>

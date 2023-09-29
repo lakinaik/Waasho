@@ -19,6 +19,11 @@ body {
   clip-path: polygon(0 0, 100% 0, 86.5% 101%, 0% 101%);
 }
 
+.logo-container{
+  background-color: #3969b3;
+  clip-path: polygon(0 0, 100% 0, 86.5% 101%, 0% 101%);
+}
+
 /* ==============Navbar============ */
 .navlink a:hover,
 .active {

@@ -1,4 +1,5 @@
 import React from 'react'
+import PropTypes from 'prop-types';
 
 const WhyChooseUsCard = ({img, title}) => {
   return (
@@ -14,5 +15,10 @@ const WhyChooseUsCard = ({img, title}) => {
     </>
   )
 }
+
+WhyChooseUsCard.propTypes = {
+  img: PropTypes.string.isRequired, 
+  title: PropTypes.string.isRequired, 
+};
 
 export default WhyChooseUsCard

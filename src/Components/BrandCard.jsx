@@ -1,5 +1,6 @@
 import React from 'react'
 import '../App.css'
+import PropTypes from "prop-types";
 
 const BrandCard = ({img}) => {
   return (
@@ -11,6 +12,9 @@ const BrandCard = ({img}) => {
     </div>
     </>
   )
+}
+BrandCard.propTypes = {
+  img: PropTypes.string.isRequired
 }
 
 export default BrandCard

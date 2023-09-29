@@ -1,11 +1,11 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { GiCheckMark } from "react-icons/gi";
 import Bredcrumb from "../Components/Bredcrumb";
 import Header from "../Components/Header";
 import Footer from "../Components/Footer";
 import FranchiseCard from "../Components/FranchiseCard";
-import {toast} from 'react-toastify'
+import { toast } from "react-toastify";
 
 const Franchise = () => {
   const [formData, setFormData] = useState({
@@ -20,8 +20,8 @@ const Franchise = () => {
     know: "",
   });
 
+  const [loading, setLoading] = useState(false);
 
-  
   const handleChange = (e) => {
     const { name, value } = e.target;
     setFormData({
@@ -32,6 +32,7 @@ const Franchise = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    setLoading(true);
     try {
       await fetch(`${process.env.REACT_APP_API}/franchise`, {
         method: "POST",
@@ -40,25 +41,24 @@ const Franchise = () => {
           "Content-Type": "application/json",
         },
         body: JSON.stringify({
-          formData
+          formData,
         }),
       }).then((res) => {
         if (res.status === 200) {
-          window.location.reload()
-          toast.success("Message sent !", {
+          toast.success("Enquiry sent successfully !", {
             position: toast.POSITION.BOTTOM_RIGHT,
           });
-          // setFormData({
-          //   name: "",
-          //   email: "",
-          //   phone: "",
-          //   city: "",
-          //   state: "",
-          //   address: "",
-          //   pincode: "",
-          //   occupation: "",
-          //   know: "",
-          // });
+          setFormData({
+            name: "",
+            email: "",
+            phone: "",
+            city: "",
+            state: "",
+            address: "",
+            pincode: "",
+            occupation: "",
+            know: "",
+          });
         } else {
           console.log("can not send message");
           toast.error("Something went wrong !", {
@@ -69,16 +69,20 @@ const Franchise = () => {
     } catch (error) {
       console.error("sending failed:", error);
     }
-
+    setLoading(false);
   };
+
+  useEffect(()=>{
+    document.title = "Waasho - Franchise" 
+   })
   return (
     <>
       <Header />
       <Bredcrumb page={"Franchise"} />
       <div className="franchise-page md:px-14 px-6 py-6 mt-7">
         <div>
-          <h1 className="md:text-5xl text-xl text-center  my-5 font-extrabold text-blue-900">
-            Join Our Doorstep waterless car wash model today.
+          <h1 className="md:text-5xl text-xl text-center  my-5 pb-4 font-extrabold text-blue-900">
+            Join Our Doorstep Waterless Car Wash Model Today.
           </h1>
           <p className="md:text-lg text-base text-slate-600">
             <span className="text-sky-700">
@@ -94,7 +98,7 @@ const Franchise = () => {
             car care market?
             <br />
             <br />
-            If the answer to that question is unambiguously YES, then you've
+            If the answer to that question is unambiguously YES, then you&#39;ve
             found the proper site! The innovators in waterless car washing since
             2015, Waasho, present a fascinating opportunity.
             <br />
@@ -108,17 +112,22 @@ const Franchise = () => {
             Waasho is currently offering waterless auto cleaning services in
             several cities. ready to increase its footprint throughout all the
             cities in the country using the FOFO model (Franchise Owned,
-            Franchise Operated)."
+            Franchise Operated). &#34;
             <br />
             <br />
-            Leading publications and websites have acknowledged Waasho's
+            Leading publications and websites have acknowledged Waasho&#39;s
             breakthrough waterless auto cleaning method, and now is your chance
             to participate in this thrilling voyage. <br />
             <br />
-            Don't wait if you're a proactive go-getter! Call us at{" "}
-            <Link to="tel:+918926123232" className="text-blue-700 font-bold">+91 89261 23232</Link> or
-            Mail us{" "}
-            <Link to={"mailto:waashocare@gmail.com"} className="text-blue-700 font-bold">
+            Don&#39;t wait if you&#39;re a proactive go-getter! Call us at{" "}
+            <Link to="tel:+918926123232" className="text-blue-700 font-bold">
+              +91 89261 23232
+            </Link>{" "}
+            or Mail us{" "}
+            <Link
+              to={"mailto:waashocare@gmail.com"}
+              className="text-blue-700 font-bold"
+            >
               waashocare@gmail.com
             </Link>{" "}
             and decide to follow the revolutionary path in ecologically friendly
@@ -126,19 +135,16 @@ const Franchise = () => {
           </p>
         </div>
 
-
-
-
         <div className="grid md:grid-cols-2 grid-cols-1 gap-8 md:my-8 my-3">
           <div className="shadow-lg md:py-14 py-6 md:px-10 px-2">
             <h2 className="md:text-3xl text-xl font-extrabold text-blue-800 my-4">
-              Why Partner with Waasho
+              WHY PARTNER WITH WAASHO
             </h2>
             <hr className="my-6" />
             <div>
               <p className="text-base mb-3">
                 <GiCheckMark className="inline me-3 text-blue-600" />
-                <span>India's leading waterless car wash company</span>
+                <span>India&#39;s leading waterless car wash company</span>
               </p>
               <p className="text-base mb-3">
                 <GiCheckMark className="inline me-3 text-blue-600" />
@@ -264,7 +270,7 @@ const Franchise = () => {
               type="text"
               name="name"
               id="name"
-              placeholder="Name *"
+              placeholder="Name "
               required
               className="w-full p-3 outline-0 border duration-300 hover:outline-1 hover:outline-blue-800 mb-6"
               value={formData.name}
@@ -274,7 +280,7 @@ const Franchise = () => {
               type="text"
               name="email"
               id="email"
-              placeholder="Email *"
+              placeholder="Email "
               required
               className="w-full p-3 outline-0 border duration-300 hover:outline-1 hover:outline-blue-800 mb-6"
               value={formData.email}
@@ -288,6 +294,7 @@ const Franchise = () => {
               className="w-full p-3 outline-0 border duration-300 hover:outline-1 hover:outline-blue-800 mb-6"
               value={formData.phone}
               onChange={handleChange}
+              required
             />
             <input
               type="text"
@@ -348,7 +355,7 @@ const Franchise = () => {
               className="text-lg font-bold rounded-md text-white border-2 border-blue-600 bg-blue-600 py-2 w-full duration-300 hover:bg-white hover:text-blue-600"
               onChange={handleChange}
             >
-              Send Enquiry
+              {loading ? "Please wait" : "Send Enquiry"}
             </button>
           </form>
         </div>

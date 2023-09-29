@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import Header from "../Components/Header";
 import Bredcrumb from "../Components/Bredcrumb";
 import Footer from "../Components/Footer";
@@ -11,15 +11,27 @@ import carsDelivereImg from "../assets/carsDelivered.png";
 import Testimonial from "../Components/Testimonial";
 import englishVideo from "../assets/washo-english.mp4";
 import hindiVideo from "../assets/washo-hindi.mp4";
-import { FaPlay } from "react-icons/fa";
 import '../App.css'
 
 const Reviews = () => {
+
+  useEffect(()=>{
+    document.title = "Waasho - Reviews" 
+   })
+
   return (
     <>
       <Header />
       <Bredcrumb page={"Reviews"} />
       <section className="Reviews">
+      <section className="testimonial md:mt-1 mt-1  md:px-14 px-4 py-8 my-8">
+          <h2 className="md:text-4xl text-2xl font-extrabold text-blue-50 text-center">
+            Testimonial
+          </h2>
+          <div className="my-14 -z-10">
+            <Testimonial />
+          </div>
+        </section>
         <section className=" md:px-14 px-6 py-8 benifits grid md:grid-cols-2 grid-cols-1 md:my-8 gap-8 my-6 place-content-center">
           <div>
             <h2 className="md:text-5xl text-3xl font-extrabold text-blue-950">
@@ -108,14 +120,7 @@ const Reviews = () => {
           </div>
         </section>
 
-        <section className="testimonial md:mt-16 mt-6  md:px-14 px-4 py-8 my-8">
-          <h2 className="md:text-4xl text-2xl font-extrabold text-blue-50 text-center">
-            Testimonial
-          </h2>
-          <div className="my-14 -z-10">
-            <Testimonial />
-          </div>
-        </section>
+        
       </section>
       <Footer />
     </>

@@ -1,5 +1,5 @@
 import Footer from "../Components/Footer";
-
+import React, { useEffect } from "react";
 import Header from "../Components/Header";
 import Bredcrumb from "../Components/Bredcrumb";
 import SaveMessageBanner from "../Components/SaveMessageBanner";
@@ -7,6 +7,11 @@ import SaveMessageBanner from "../Components/SaveMessageBanner";
 import aboutBanner from "../assets/about-banner.png";
 
 const About = () => {
+
+  useEffect(()=>{
+   document.title = "Waasho - About" 
+  })
+
   return (
     <>
       <Header />
@@ -18,11 +23,11 @@ const About = () => {
 
         <div className="md:px-14 py-2 px-6">
           <h2 className="md:text-5xl text-3xl text-blue-950 font-sans font-bold my-4 text-center">
-          Welcome to <span className="md:text-6xl text-3xl text-sky-500">Waasho</span> Premium Car Care Company.
+          Welcome To <span className="md:text-6xl text-3xl text-sky-500">Waasho</span> Premium Car Care Company.
           </h2>
-          <p className="text-blue-900 md:text-2xl text-lg"><em>"Say Goodbye to Wasting Water: Discover the Power of{" "}
+          <p className="text-blue-900 md:text-2xl text-lg"><em>&#34;Say Goodbye to Wasting Water: Discover the Power of{" "}
             <span className="font-bold text-sky-600">Waterless</span> Car
-            Cleaning!"</em></p>
+            Cleaning!&#34;</em></p>
           <p className="text-lg">
              With our revolutionary{" "}
             <span className="font-bold text-sky-600">waterless</span> car
@@ -32,8 +37,8 @@ const About = () => {
             solutions harness cutting-edge cleaning agents that require no
             water, yet they deliver a pristine, showroom-worthy shine. By
             choosing <span className="font-bold text-sky-600">waterless</span>{" "}
-            car cleaning, you're not only preserving this precious resource but
-            also saving time and energy. It's time to make a positive impact on
+            car cleaning, you&#39;re not only preserving this precious resource but
+            also saving time and energy. It&#39;s time to make a positive impact on
             both your car and the <span className="text-green-600 font-bold">environment</span> - all while enjoying the
             incredible convenience and effectiveness of our{" "}
             <span className="font-bold text-sky-600">waterless</span> cleaning
@@ -48,14 +53,14 @@ const About = () => {
               About Waasho
             </p>
             <h2 className="md:text-4xl text-2xl font-semibold my-2 text-cyan-950">
-              We're the Leading{" "}
+              We&#39;re The Leading{" "}
               <span className="font-bold text-sky-600">Waterless</span> Carwash
               Company
             </h2>
           </div>
           <div className="right md:col-span-2">
             <p className="text-blue-950 text-3xl mb-8">
-              We have 05+ years of experiences for give you better quality
+              We have 05+ years of experiences for give you Excellent quality
               results.
             </p>
             <p className="text-slate-600 text-lg">
@@ -74,44 +79,6 @@ const About = () => {
             </p>
           </div>
         </div>
-        {/* <section className="team md:my-10 my-8 bg-slate-100 md:px-20 px-4 py-10">
-          <div className="header mx-auto text-center md:w-[32rem]">
-            <p className="text-lg font-medium text-sky-600 relative after:content-[''] after:h-[2px] after:w-14 after:bg-blue-500 after:absolute after:top-1/2 after:ms-1">
-              Meet Our Team
-            </p>
-            <h2 className="md:text-5xl text-2xl font-semibold my-3 text-cyan-950">
-              Meet Our Professional Skilled Staff
-            </h2>
-          </div>
-          <div className="team-member-wrapper">
-            <div className="grid lg:grid-cols-4 md:grid-cols-2 grid-cols-1 gap-14 my-14">
-              <TeamCard
-                img={member1}
-                name={"John doe"}
-                position={"Owner/Consultant"}
-                fbLink={"/"}
-                InstaLink={"/"}
-                twitLink={"/"}
-              />
-              <TeamCard
-                img={member2}
-                name={"John doe"}
-                position={"Owner/Consultant"}
-                fbLink={"/"}
-                InstaLink={"/"}
-                twitLink={"/"}
-              />
-              <TeamCard
-                img={member3}
-                name={"John doe"}
-                position={"Owner/Consultant"}
-                fbLink={"/"}
-                InstaLink={"/"}
-                twitLink={"/"}
-              />
-            </div>
-          </div>
-        </section> */}
       </section>
       <div className="my-2">
         <img src={aboutBanner} alt="" />

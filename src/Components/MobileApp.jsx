@@ -1,7 +1,8 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import mobileApp from '../assets/mobile-app.avif'
-
+import playstore from '../assets/playstore.png'
+import appstore from '../assets/appstore.png'
 
 const MobileApp = () => {
   return (
@@ -29,8 +30,8 @@ const MobileApp = () => {
               Time and Location, We Are Done !
             </p>
             <div className="flex gap-3">
-            <Link className="inline"><img src="https://fixigo.in/FixigoAssets2023/images/androied.png" alt="" /></Link>
-            <Link className="inline"><img src="https://fixigo.in/FixigoAssets2023/images/ios.png" alt="" /></Link>
+            <Link className="inline"><img src={playstore} alt="" /></Link>
+            <Link className="inline"><img src={appstore} alt="" /></Link>
             </div>
           </div>
         </div>

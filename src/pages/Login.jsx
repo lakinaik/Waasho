@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import Footer from "../Components/Footer";
 import Logo from "../assets/waasho-logo-1.png";
 import { GrMail } from "react-icons/gr";
@@ -18,7 +18,7 @@ const Login = () => {
   const navigate = useNavigate()
   const location = useLocation()
   const [loader, setLoader] = useState(false)
-
+  
   const handleShow = (e) => {
     e.preventDefault();
     setShowPassword(!showPassword);
@@ -28,7 +28,9 @@ const Login = () => {
     e.preventDefault();
 
     if (!email || !password) {
-      alert("Please fill in all fields.");
+      toast.error("All fields required.", {
+        position: toast.POSITION.BOTTOM_RIGHT
+      });
       return;
     }
 
@@ -75,14 +77,17 @@ const Login = () => {
     
   };
 
+  useEffect(()=>{
+    document.title = "Waasho - Login" 
+   })
   return (
     <>
       <Header />
       <section className="max-w-full flex items-center justify-center bg-[#dbe6ee]">
         <div className="bg-white rounded my-20 login p-4">
-          <div className="text-center bg-blue-900 px-2 text-white mx-auto">
-            <img src={Logo} alt="logo" className="p-2 w-40" />
-            <span className="text-xl font-semibold relative bottom-4">
+          <div className="border px-2 bg-blue-900 text-white mx-auto grid place-items-center">
+            <img src={Logo} alt="logo" className="p-2 w-40 mx-auto" />
+            <span className="text-2xl font-bold mb-2">
               Welcome back !
             </span>
           </div>
@@ -91,8 +96,8 @@ const Login = () => {
               <img src={leftImg} alt="img" className="" width={300} />
             </div>
             <div>
-              <form method="POST" onSubmit={handleSubmit} className="my-4">
-                <div className="border-2 border-sky-500 p-2 mb-4 rounded">
+              <form method="POST" onSubmit={handleSubmit} className="my-4" autoComplete="on">
+                <div className="border-2 border-sky-500 p-2 mb-4 rounded-md">
                   <GrMail className="inline me-2" />
                   <input
                     type="email"
@@ -100,12 +105,12 @@ const Login = () => {
                     id="email"
                     className="outline-0 w-[90%]"
                     placeholder="Email"
-                    required
                     onChange={(e) => setEmail(e.target.value)}
                     value={email}
+                    autoComplete=""
                   />
                 </div>
-                <div className="border-2 border-sky-500 p-2 mb-4">
+                <div className="border-2 border-sky-500 p-2 mb-4 rounded-md">
                   <AiFillLock className="inline me-2" />
                   {showPassword ? (
                     <input
@@ -116,7 +121,7 @@ const Login = () => {
                       placeholder="Password"
                       value={password}
                       onChange={(e) => setPassword(e.target.value)}
-                      required
+                      
                     />
                   ) : (
                     <input
@@ -127,7 +132,7 @@ const Login = () => {
                       placeholder="Password"
                       value={password}
                       onChange={(e) => setPassword(e.target.value)}
-                      required
+                    
                     />
                   )}
                   <button
@@ -153,10 +158,10 @@ const Login = () => {
                 <div className="text-center my-4">
                   <button
                     type="submit"
-                    className="bg-sky-500 text-white py-1 px-4 border-2 border-sky-500 rounded-lg duration-300 hover:bg-transparent hover:text-black"
+                    className="bg-sky-500 w-full text-white py-1 px-4 border-2 border-sky-500 rounded-md duration-300 hover:bg-transparent hover:text-black"
                   >
                     {
-                      loader ? "Processing": "Login"
+                      loader ? `Processing...`: "Login"
                     }
                   </button>
                 </div>

@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import Header from "../Components/Header";
 import Footer from "../Components/Footer";
 import Bredcrumb from "../Components/Bredcrumb";
@@ -12,6 +12,10 @@ import Methodology from "../Components/Methodology";
 import ProbleWrapper from "../Components/ProbleWrapper";
 
 const Services = () => {
+
+  useEffect(()=>{
+    document.title = "Waasho - Services" 
+   })
   return (
     <>
       <Header />
@@ -115,7 +119,7 @@ const Services = () => {
                 Car Cleaning
               </p>
               <h1 className="text-2xl font-extrabold text-blue-950">
-                Car Detailing
+                CAR DETAILING
               </h1>
             </div>
             <div className="md:p-6">
@@ -140,7 +144,7 @@ const Services = () => {
             </div>
           </div>
           <div>
-            <h2 className="md:text-3xl text-xl font-bold text-slate-500 my-2 pb-3">Comming Soon</h2>
+          <ServicePlanWrapper />
           </div>
           </div>
       </section>

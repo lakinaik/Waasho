@@ -6,7 +6,7 @@ import Navbar from "../Components/Navbar";
 const Header = () => {
   const [scroll, setScroll] = useState(false);
   const handleScroll = () => {
-    if (window.scrollY > 200) {
+    if (window.scrollY > 100) {
       setScroll(true);
     } else {
       setScroll(false);
@@ -24,8 +24,8 @@ const Header = () => {
         <div
           className={
             scroll
-              ? "w-full fixed top-0 z-50 duration-500"
-              : "w-full z-50  duration-500 ease-out"
+              ? "w-full fixed top-0 z-50 duration-1000"
+              : "w-full z-50  duration-1000 ease-out"
           }
         >
           <Navbar />

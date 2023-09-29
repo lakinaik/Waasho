@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import Footer from "../Components/Footer";
 import Breadcrumb from "../Components/Bredcrumb";
 import Vehicle from "../Components/Vehicle";
@@ -18,6 +18,9 @@ const Booking = () => {
   const handleVehicleSelections = (vehicle) => {
     setSelectedVehicles(vehicle);
   };
+  useEffect(()=>{
+    document.title = "Waasho - Booking" 
+   })
 
   return (
     <>

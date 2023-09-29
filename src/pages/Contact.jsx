@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import Footer from "../Components/Footer";
 import Breadcrumb from "../Components/Bredcrumb"; // Corrected typo in import statement
 import { Link } from "react-router-dom";
@@ -6,11 +6,9 @@ import { AiOutlineMail } from "react-icons/ai";
 import { PiPhoneCall } from "react-icons/pi";
 import { ImLocation } from "react-icons/im";
 import { toast } from "react-toastify";
-import { useAuth } from "../Components/context/auth";
 import Header from "../Components/Header";
 
 const Contact = () => {
-  const [auth] = useAuth();
   const [formData, setFormData] = useState({
     fullname: "",
     email: "",
@@ -69,6 +67,11 @@ const Contact = () => {
       console.error("sending failed:", error);
     }
   };
+
+  useEffect(()=>{
+    document.title = "Waasho - Contact" 
+   })
+
   return (
     <>
       <Header />
@@ -79,13 +82,13 @@ const Contact = () => {
             Write a Message
           </p>
           <h2 className="md:text-5xl text-2xl font-semibold my-3 text-cyan-950">
-            We're Connected to Help You <br /> All the Time
+            We&#39;re Connected To Help You 24/7.
           </h2>
         </div>
         <div className="mx-auto md:px-20 px-6 md:my-8 my-6">
           <div>
             <p className="text-xl text-slate-500 mb-8">
-            "Contact Waasho whenever you require help or have inquiries. For your convenience, we've created a specific contact page with several options to get in touch with us. Whether you prefer phone, email, or a brief message, our accommodating team is prepared to help you right away. Your pleasure is our top priority, and we're here to make sure that using a waterless vehicle wash is easy and fun. For questions, comments, or support, please don't hesitate to contact us. We're only a click or phone call away. Together, let's keep your car clean and Shiny together.
+            Contact <span className="font-bold text-blue-600">Waasho</span> whenever you require help or have inquiries. For your convenience, we&#39;ve created a specific contact page with several options to get in touch with us. Whether you prefer phone, email, or a brief message, our accommodating team is prepared to help you right away. Your pleasure is our top priority, and we&#39;re here to make sure that using a waterless vehicle wash is easy and fun. For questions, comments, or support, please don&#39;t hesitate to contact us. We&#39;re only a click or phone call away. Together, let&#39;s keep your car clean and Shiny together.
             </p>
             <div>
               <h2 className="text-xl font-bold text-blue-900">
@@ -106,21 +109,6 @@ const Contact = () => {
             <div>
               <h2 className="text-xl font-bold text-blue-900">
                 {" "}
-                <ImLocation className="inline text-2xl" /> Bhubaneswar Office
-              </h2>
-              <Link
-                to={
-                  "https://www.google.com/maps/place/Somu+Meadows/@20.3529639,85.8361538,17z/data=!3m1!4b1!4m6!3m5!1s0x3a1909f64fa722d1:0x1d0d4d76b8f766af!8m2!3d20.3529589!4d85.8387287!16s%2Fg%2F11rz2fzf8t?entry=ttu"
-                }
-                className="font-semibold flex md:items-center text-slate-600 my-4"
-              >
-                Somu meadows, Near patia station road,patia
-              </Link>
-            </div>
-
-            <div>
-              <h2 className="text-xl font-bold text-blue-900">
-                {" "}
                 <ImLocation className="inline text-2xl" />
                 Mumbai Office
               </h2>
@@ -134,6 +122,22 @@ const Contact = () => {
                 East, Mira Bhayandar, Maharashtra 401107
               </Link>
             </div>
+            <div>
+              <h2 className="text-xl font-bold text-blue-900">
+                {" "}
+                <ImLocation className="inline text-2xl" /> Bhubaneswar Office
+              </h2>
+              <Link
+                to={
+                  "https://www.google.com/maps/place/Somu+Meadows/@20.3529639,85.8361538,17z/data=!3m1!4b1!4m6!3m5!1s0x3a1909f64fa722d1:0x1d0d4d76b8f766af!8m2!3d20.3529589!4d85.8387287!16s%2Fg%2F11rz2fzf8t?entry=ttu"
+                }
+                className="font-semibold flex md:items-center text-slate-600 my-4"
+              >
+                Somu meadows, Near patia station road,patia
+              </Link>
+            </div>
+
+          
             <div className="mt-4">
               <Link
                 className="text-xl text-slate-500"
@@ -145,7 +149,7 @@ const Contact = () => {
               <br />
               <Link
                 className="text-xl text-slate-500 my-3"
-                to={"tel:+4733378901"}
+                to={"tel:+918926123232"}
               >
                 <PiPhoneCall className="inline text-xl me-2 text-blue-600" />
                 <span>+91 89261 23232</span>
@@ -163,9 +167,10 @@ const Contact = () => {
                   name="fullname"
                   id="fullname"
                   placeholder="Your Fullname"
-                  className="p-3 outline-0 bg-slate-300 text-black"
+                  className="p-3 outline-0 border duration-300 hover:outline-1 hover:outline-blue-800"
                   value={formData.fullname}
                   onChange={handleChange}
+                  required
                 />
 
                 <input
@@ -173,9 +178,10 @@ const Contact = () => {
                   name="email"
                   id="email"
                   placeholder="Your Email"
-                  className="p-3 outline-0 bg-slate-300 text-black"
+                  className="p-3 outline-0 border duration-300 hover:outline-1 hover:outline-blue-800"
                   value={formData.email}
                   onChange={handleChange}
+                  required
                 />
 
                 <input
@@ -183,25 +189,27 @@ const Contact = () => {
                   name="phone"
                   id="phone"
                   placeholder="Enter your phone number"
-                  className="p-3 outline-0 bg-slate-300 text-black"
+                  className="p-3 outline-0 border duration-300 hover:outline-1 hover:outline-blue-800"
                   value={formData.phone}
                   onChange={handleChange}
+                  required
                 />
                 <input
                   type="text"
                   name="subject"
                   id="subject"
                   placeholder="Subject"
-                  className="p-3 outline-0 bg-slate-300 text-black"
+                  className="p-3 outline-0 border duration-300 hover:outline-1 hover:outline-blue-800"
                   value={formData.subject}
                   onChange={handleChange}
+                  required
                 />
 
                 <textarea
                   name="comment"
                   id="comment"
                   placeholder="Your Comment"
-                  className="p-3 outline-0 bg-slate-300 text-black md:col-span-2"
+                  className="p-3 outline-0 border duration-300 hover:outline-1 hover:outline-blue-800 md:col-span-2"
                   value={formData.comment}
                   onChange={handleChange}
                 ></textarea>

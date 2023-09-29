@@ -7,10 +7,10 @@ import instagram from "../assets/instagram.png";
 import whatsapp from "../assets/whatsapp.png";
 import linkedin from "../assets/linkedin.png";
 
-const TopNav = ({ px }) => {
+const TopNav = () => {
   return (
     <div
-      className={`max-w-full mx-auto bg-sky-700 px-${px} flex justify-between items-center text-white md:pe-20`}
+      className={`max-w-full mx-auto bg-sky-700 flex justify-between items-center text-white md:pe-20`}
     >
       <div className="details-topnav md:py-3 md:px-3 md:w-1/3 w-1/2 md:pe-8 md:p-4 py-2 px-2 md:ps-16">
         <BsFillTelephoneFill className="inline text-sky-300" />

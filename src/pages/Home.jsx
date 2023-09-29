@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import Slider from '../Components/Slider'
 import Service from '../Components/ServiceSection'
 import Header from '../Components/Header'
@@ -16,6 +16,10 @@ import CitieWrapper from '../Components/CitiesWrapper'
 
 const Home = () => {
 
+
+  useEffect(()=>{
+    document.title = "Waasho - Home" 
+   })
   return (
     <>
       <Header />

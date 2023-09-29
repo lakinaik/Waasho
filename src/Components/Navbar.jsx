@@ -2,8 +2,6 @@ import React, { useState } from "react";
 import Logo from "../assets/waasho-logo-1.png";
 import { Link, NavLink } from "react-router-dom";
 import { TfiMenu } from "react-icons/tfi";
-import { FaFacebookF, FaPinterestP, FaWhatsapp } from "react-icons/fa";
-import { AiOutlineInstagram } from "react-icons/ai";
 import { GrFormClose } from "react-icons/gr";
 import "../App.css";
 import { useAuth } from "./context/auth";
@@ -29,10 +27,10 @@ const Navbar = () => {
   return (
     <>
       <nav>
-        <div className="w-full bg-white shadow-md mx-auto flex items-center sticky top-0 z-40 sm:px-14 px-2 py-4">
-          <div className="logo-container">
+        <div className="w-full bg-white shadow-md mx-auto flex items-center sticky top-0 z-40 md:pe-14 pe-4">
+          <div className="logo-container md:ps-14 ps-4 py-2 md:w-96 w-60">
             <Link to={"/"} className="m-0 p-0">
-              <img src={Logo} alt="logo" className="ms-6 w-24" />
+              <img src={Logo} alt="logo" className="ms-6 md:w-24 w-16" />
             </Link>
           </div>
           <div className="navlist w-full flex justify-end items-center pe-4 py-2">
@@ -88,12 +86,17 @@ const Navbar = () => {
               )}
             </div>
             {/* ======humbergur====== */}
-            <button
+            {
+              show? <button onClick={() => setShow(false)}>
+              <GrFormClose className="lg:hidden block text-black float-right text-3xl" />
+            </button>:
+              <button
               className="lg:hidden block text-black float-right"
               onClick={() => setShow(true)}
-            >
+              >
               <TfiMenu className="text-black text-xl" />
             </button>
+            }
 
             {/* =============Mobile navbar========= */}
 
@@ -104,11 +107,6 @@ const Navbar = () => {
                   : "fixed bg-[#0e1b46fa] w-60 h-screen top-0 -left-[100%] overflow-auto lg:hidden block z-50 duration-500"
               }
             >
-              <span className="absolute top-5 right-3 text-white z-50">
-                <button onClick={() => setShow(false)}>
-                  <GrFormClose className="text-4xl font-semibold text-white" />
-                </button>
-              </span>
               <div className="w-60 inline-block">
                 <Link to={"/"}>
                   {" "}
