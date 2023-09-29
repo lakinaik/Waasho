@@ -1,7 +1,7 @@
 {
   "files": {
     "main.css": "/Waasho/static/css/main.1bbd147e.css",
-    "main.js": "/Waasho/static/js/main.459cd353.js",
+    "main.js": "/Waasho/static/js/main.2364abc0.js",
     "static/js/128.b4e37037.chunk.js": "/Waasho/static/js/128.b4e37037.chunk.js",
     "static/js/843.cc2390c8.chunk.js": "/Waasho/static/js/843.cc2390c8.chunk.js",
     "static/js/218.81623fc6.chunk.js": "/Waasho/static/js/218.81623fc6.chunk.js",
@@ -78,7 +78,7 @@
     "static/media/revicons.woff": "/Waasho/static/media/revicons.e8746a624ed098489406.woff",
     "index.html": "/Waasho/index.html",
     "main.1bbd147e.css.map": "/Waasho/static/css/main.1bbd147e.css.map",
-    "main.459cd353.js.map": "/Waasho/static/js/main.459cd353.js.map",
+    "main.2364abc0.js.map": "/Waasho/static/js/main.2364abc0.js.map",
     "128.b4e37037.chunk.js.map": "/Waasho/static/js/128.b4e37037.chunk.js.map",
     "843.cc2390c8.chunk.js.map": "/Waasho/static/js/843.cc2390c8.chunk.js.map",
     "218.81623fc6.chunk.js.map": "/Waasho/static/js/218.81623fc6.chunk.js.map",
@@ -87,6 +87,6 @@
   },
   "entrypoints": [
     "static/css/main.1bbd147e.css",
-    "static/js/main.459cd353.js"
+    "static/js/main.2364abc0.js"
   ]
 }
