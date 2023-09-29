@@ -21,7 +21,8 @@ function App() {
     <>
     <Suspense>
       <AuthProvider>
-        <BrowserRouter>
+        <BrowserRouter basename="/Waasho">
+
         <ToastContainer 
         position="bottom-center"
         autoClose={4000}
