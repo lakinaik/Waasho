@@ -16,6 +16,12 @@ const ForgotPassword = () => {
 
 const sendOtp = async (e) =>{
     e.preventDefault();
+    if(!email){
+      toast.error("Email is required", {
+        position: toast.POSITION.BOTTOM_RIGHT,
+      });
+      return;
+    }
     setLoading(true);
     await fetch(`${process.env.REACT_APP_API}/send-otp`, {
         method: "POST",
