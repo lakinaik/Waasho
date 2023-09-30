@@ -126,7 +126,7 @@ const [subscriber,setSubscriber] = useState("")
           </div>
           <div className="md:mt-20 mt-3">
             <h2 className="md:text-2xl text-xl font-extrabold text-white">
-              Newslatter
+              Newsletter
             </h2>
             <div>
               <p className="text-lg text-slate-400 mt-4">
